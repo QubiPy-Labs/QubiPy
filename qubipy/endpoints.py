@@ -8,7 +8,7 @@ BASE_URL = 'https://rpc.qubic.org/v1'
 
 LATEST_TICK = '/latestTick'
 
-BROADCAST_TRANSACTION = ''
+BROADCAST_TRANSACTION = '/broadcast-transaction'
 
 APPROVED_TRANSACTIONS_FOR_TICK = '/ticks/{tick_number}/approved-transactions'
 
@@ -34,7 +34,7 @@ HEALTH_CHECK = '/healthcheck'
 
 COMPUTORS = '/epochs/{epoch}/computors'
 
-QUERY_SC = ''
+QUERY_SC = '/querySmartContract'
 
 TICK_INFO = '/tick-info'
 
