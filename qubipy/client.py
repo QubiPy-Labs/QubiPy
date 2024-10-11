@@ -61,7 +61,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{endpoint}')
             response.raise_for_status()
             data = response.json()
-            return data.get('approvedTransactions')
+            return data.get('approvedTransactions', {})
 
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the approved transactions from the API: {str(E)}") from None
@@ -78,7 +78,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
-            return data.get('balance')
+            return data.get('balance', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the balance data from the API, check the address ID and try again: {str(E)}") from None
     
@@ -103,7 +103,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
-            return data.get('hexDigest')
+            return data.get('hexDigest', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the chain hash: {str(E)}") from None
     
@@ -147,7 +147,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
-            return data.get('transaction')
+            return data.get('transaction', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction data: {str(E)}") from None
     
@@ -162,7 +162,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
-            return data.get('transactionStatus')
+            return data.get('transactionStatus', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction status: {str(E)}") from None
     
@@ -214,7 +214,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
-            return data.get('computors')
+            return data.get('computors', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
     
@@ -275,21 +275,6 @@ class QubiPy:
             return data.get('possessedAssets', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the possessed assets: {str(E)}") from None
-    
-    def get_identity_balance(self, identity: Optional[int] = None) -> Dict[str, Any]:
-        
-        if not identity:
-            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
-        
-        endpoint = f'/balances/{identity}'
-
-        try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
-            response.raise_for_status()
-            data = response.json()
-            return data.get('balance', {})
-        except requests.exceptions.RequestException as E:
-            raise QubiPy_Exceptions(f"Failed to retrieve the identity balance: {str(E)}") from None
 
     def get_block_height(self) -> Dict[str, Any]:
 
