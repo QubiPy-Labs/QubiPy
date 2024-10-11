@@ -217,4 +217,96 @@ class QubiPy:
             return data.get('computors')
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
+    
+    def query_smart_contract(self) -> Dict[str, Any]:
+        pass
 
+    def get_tick_info(self) -> Dict[str, Any]:
+
+        try:
+            response = requests.get(f'{self.base_url}{TICK_INFO}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('tickInfo', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the tick info data: {str(E)}") from None
+    
+    def get_issued_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+
+        if not identity:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
+        endpoint = ISSUED_ASSETS.format(identity = identity)
+
+        try:
+            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('issuedAssets', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the list of assets issued by a specific identity: {str(E)}") from None
+    
+    def get_owned_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+
+        if not identity:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
+        endpoint = OWNED_ASSETS.format(identity = identity)
+
+        try:
+            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('ownedAssets', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the owned assets: {str(E)}") from None
+    
+    def get_possessed_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+        
+        if not identity:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
+        endpoint = POSSESSED_ASSETS.format(identity = identity)
+
+        try:
+            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('possessedAssets', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the possessed assets: {str(E)}") from None
+    
+    def get_identity_balance(self, identity: Optional[int] = None) -> Dict[str, Any]:
+        
+        if not identity:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
+        endpoint = f'/balances/{identity}'
+
+        try:
+            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('balance', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the identity balance: {str(E)}") from None
+
+    def get_block_height(self) -> Dict[str, Any]:
+
+        try:
+            response = requests.get(f'{self.base_url}{BLOCK_HEIGHT}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('blockHeight', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the block height: {str(E)}") from None
+    
+    def get_latest_stats(self) -> Dict[str, Any]:
+
+        try:
+            response = requests.get(f'{self.base_url}{LATEST_STATS}', timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('data', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the latest stats from the RPC Server: {str(E)}") from None
