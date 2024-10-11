@@ -14,7 +14,7 @@ APPROVED_TRANSACTIONS_FOR_TICK = '/ticks/{tick_number}/approved-transactions'
 
 TICK_DATA = '/ticks/{tick_number}/tick-data'
 
-WALLET_BALANCE = '/balances/{wallet_id}'
+WALLET_BALANCE = '/balances/{id}'
 
 STATUS = '/status'
 
