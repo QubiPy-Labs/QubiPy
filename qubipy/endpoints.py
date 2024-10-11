@@ -28,7 +28,7 @@ TRANSACTION = '/transactions/{tx_id}'
 
 TRANSACTION_STATUS = '/tx-status/{tx_id}'
 
-TRANSFER_TRANSACTIONS_PER_TICK = '/identities/{identity}/transfer-transacions'
+TRANSFER_TRANSACTIONS_PER_TICK = '/identities/{id}/transfer-transactions'
 
 HEALTH_CHECK = '/healthcheck'
 
