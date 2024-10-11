@@ -10,19 +10,19 @@ LATEST_TICK = '/latestTick'
 
 BROADCAST_TRANSACTION = '/broadcast-transaction'
 
-APPROVED_TRANSACTIONS_FOR_TICK = '/ticks/{tick_number}/approved-transactions'
+APPROVED_TRANSACTIONS_FOR_TICK = '/ticks/{tick}/approved-transactions'
 
-TICK_DATA = '/ticks/{tick_number}/tick-data'
+TICK_DATA = '/ticks/{tick}/tick-data'
 
 WALLET_BALANCE = '/balances/{id}'
 
 STATUS = '/status'
 
-CHAIN_HASH = '/ticks/{tick_number}/chain-hash'
+CHAIN_HASH = '/ticks/{tick}/chain-hash'
 
-QUORUM_TICK_DATA = '/ticks/{tick_number}/quorum-tick-data'
+QUORUM_TICK_DATA = '/ticks/{tick}/quorum-tick-data'
 
-STORE_HASH = '/ticks/{tick_number}/store-hash'
+STORE_HASH = '/ticks/{tick}/store-hash'
 
 TRANSACTION = '/transactions/{tx_id}'
 
