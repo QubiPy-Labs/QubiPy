@@ -67,6 +67,20 @@ class QubiPy:
             raise QubiPy_Exceptions(f"Failed to retrieve the approved transactions from the API: {str(E)}") from None
     
     def get_balance(self, wallet_id: str = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the balance of a specific wallet from the API.
+
+        Args:
+            wallet_id (str, optional): The ID of the wallet for which to retrieve the balance. If not provided, an exception is raised.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the wallet balance. If no balance is found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the wallet ID is not provided or is invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
         
         if not wallet_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
@@ -84,6 +98,16 @@ class QubiPy:
     
     def get_rpc_status(self) -> Dict[str, Any]:
 
+        """
+        Retrieves the current RPC status from the API.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the RPC status information. This typically includes server health, version, and other metadata.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         try:
             response = requests.get(f'{self.base_url}{STATUS}', timeout=self.timeout)
             response.raise_for_status()
@@ -93,6 +117,20 @@ class QubiPy:
             raise QubiPy_Exceptions(f"Failed to retrieve the RPC status: {str(E)}") from None
     
     def get_chain_hash(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the chain hash (hexadecimal digest) for a specific tick number from the API.
+
+        Args:
+            tick_number (Optional[int]): The tick number for which to retrieve the chain hash. If not provided, an exception is raised.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the chain hash. If no chain hash is found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the tick number is not provided or is invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
 
         if not tick_number:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
