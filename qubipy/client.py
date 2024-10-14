@@ -31,7 +31,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{LATEST_TICK}', timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
-            return data.get('latestTick', 'No tick found')
+            return data.get('latestTick', {})
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting the last Tick: {str(E)}') from None
         
