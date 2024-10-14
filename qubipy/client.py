@@ -51,11 +51,14 @@ class QubiPy:
             QubiPy_Exceptions: If there is an issue broadcasting the transaction.
         """
         tx_encoded = base64.b64encode(tx).decode('utf-8')
-        body = {'encodedTransaction': tx_encoded}
+        payload = json.dumps({
+            "encodedTransaction": tx_encoded
+        })
+        print('payload', payload)
         try:
             response = requests.post(
                 f'{self.base_url}{BROADCAST_TRANSACTION}',
-                json=body,
+                data=payload,
                 headers={'Content-Type': 'application/json'},
                 timeout=self.timeout
             )
