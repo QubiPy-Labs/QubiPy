@@ -10,6 +10,8 @@ import json
 from exceptions import QubiPy_Exceptions
 from endpoints import *
 from config import *
+import base64
+import json
 
 class QubiPy:
     def __init__(self, base_url: str = BASE_URL, timeout=TIMEOUT):
@@ -35,8 +37,43 @@ class QubiPy:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting the last Tick: {str(E)}') from None
         
-    def broadcast_transaction(self):
-        pass
+    def broadcast_transaction(self, tx: bytes) -> Dict[str, Any]:
+        """
+        Broadcasts a transaction to the Qubic network.
+
+        Args:
+            tx (bytes): The transaction data to broadcast as bytes.
+
+        Returns:
+            Dict[str, Any]: The response from the API after broadcasting the transaction.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue broadcasting the transaction.
+        """
+        tx_encoded = base64.b64encode(tx).decode('utf-8')
+        body = {'encodedTransaction': tx_encoded}
+        try:
+            response = requests.post(
+                f'{self.base_url}{BROADCAST_TRANSACTION}',
+                json=body,
+                headers={'Content-Type': 'application/json'},
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.HTTPError as http_err:
+            if response.status_code == 400:
+                try:
+                    error_response = response.json()
+                    error_code = error_response.get('code')
+                    error_message = error_response.get('message', '')
+                    raise QubiPy_Exceptions(f"API Error {error_code}: {error_message}")
+                except json.JSONDecodeError:
+                    raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_JSON_RESPONSE)
+            else:
+                raise QubiPy_Exceptions(f'HTTP error occurred: {str(http_err)}') from None
+        except requests.RequestException as e:
+            raise QubiPy_Exceptions(f'Error broadcasting the transaction: {str(e)}') from None
 
     def get_approved_transaction_for_tick(self, tick: Optional[int] = None) -> Dict[str, Any]:
         """
