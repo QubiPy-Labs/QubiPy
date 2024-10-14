@@ -359,6 +359,16 @@ class QubiPy:
 
     def get_tick_info(self) -> Dict[str, Any]:
 
+        """
+        Retrieves information about the current tick from the API.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the tick information. If no tick information is found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         try:
             response = requests.get(f'{self.base_url}{TICK_INFO}', timeout=self.timeout)
             response.raise_for_status()
@@ -368,6 +378,20 @@ class QubiPy:
             raise QubiPy_Exceptions(f"Failed to retrieve the tick info data: {str(E)}") from None
     
     def get_issued_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the list of assets issued by a specific identity from the API.
+
+        Args:
+            identity (Optional[int]): The identity for which to retrieve the issued assets. Raises an exception if not provided.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the issued assets for the specified identity. If no issued assets are found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the identity is not provided or invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
 
         if not identity:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
@@ -384,6 +408,20 @@ class QubiPy:
     
     def get_owned_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
 
+        """
+        Retrieves the list of assets owned by a specific identity from the API.
+
+        Args:
+            identity (Optional[int]): The identity for which to retrieve the owned assets. Raises an exception if not provided.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the owned assets for the specified identity. If no owned assets are found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the identity is not provided or invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         if not identity:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
         
@@ -398,6 +436,20 @@ class QubiPy:
             raise QubiPy_Exceptions(f"Failed to retrieve the owned assets: {str(E)}") from None
     
     def get_possessed_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the list of assets possessed by a specific identity from the API.
+
+        Args:
+            identity (Optional[int]): The identity for which to retrieve the possessed assets. Raises an exception if not provided.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the possessed assets for the specified identity. If no possessed assets are found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the identity is not provided or invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
         
         if not identity:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
@@ -414,6 +466,17 @@ class QubiPy:
 
     def get_block_height(self) -> Dict[str, Any]:
 
+        """
+        Retrieves the current block height from the API.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the current block height. 
+                            If the block height is not found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         try:
             response = requests.get(f'{self.base_url}{BLOCK_HEIGHT}', timeout=self.timeout)
             response.raise_for_status()
@@ -423,6 +486,17 @@ class QubiPy:
             raise QubiPy_Exceptions(f"Failed to retrieve the block height: {str(E)}") from None
     
     def get_latest_stats(self) -> Dict[str, Any]:
+
+        """
+        Retrieves the latest statistics from the RPC server.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the latest statistics. 
+                            If no statistics are found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
 
         try:
             response = requests.get(f'{self.base_url}{LATEST_STATS}', timeout=self.timeout)
