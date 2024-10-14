@@ -506,8 +506,3 @@ class QubiPy:
             return data.get('data', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the latest stats from the RPC Server: {str(E)}") from None
-
-
-if __name__ == '__main__':
-    a = QubiPy()
-    print(a.get_latest_tick())
