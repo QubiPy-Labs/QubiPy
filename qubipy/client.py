@@ -9,9 +9,10 @@ from typing import Optional, Dict, Any
 import json
 from exceptions import QubiPy_Exceptions
 from endpoints import *
+from config import *
 
 class QubiPy:
-    def __init__(self, base_url: str = BASE_URL, timeout=5):
+    def __init__(self, base_url: str = BASE_URL, timeout=TIMEOUT):
         self.base_url = base_url
         self.timeout = timeout
     
@@ -505,3 +506,8 @@ class QubiPy:
             return data.get('data', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the latest stats from the RPC Server: {str(E)}") from None
+
+
+if __name__ == '__main__':
+    a = QubiPy()
+    print(a.get_latest_tick())
