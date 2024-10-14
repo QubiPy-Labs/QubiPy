@@ -4,8 +4,6 @@ Defines the endpoints used by the Qubic API.
 This facilitates the centralization of routes and their possible future update.
 """
 
-BASE_URL = 'https://rpc.qubic.org/v1'
-
 LATEST_TICK = '/latestTick'
 
 BROADCAST_TRANSACTION = '/broadcast-transaction'
