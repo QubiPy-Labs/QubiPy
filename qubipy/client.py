@@ -54,7 +54,6 @@ class QubiPy:
         payload = json.dumps({
             "encodedTransaction": tx_encoded
         })
-        print('payload', payload)
         try:
             response = requests.post(
                 f'{self.base_url}{BROADCAST_TRANSACTION}',
