@@ -59,7 +59,7 @@ class QubiPy:
         endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick_number = tick)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}')
+            response = requests.get(f'{self.base_url}{endpoint}', timeout=TIMEOUT)
             response.raise_for_status()
             data = response.json()
             return data.get('approvedTransactions', {})
