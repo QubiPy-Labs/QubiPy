@@ -394,8 +394,20 @@ class QubiPy:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
     
-    def query_smart_contract(self) -> Dict[str, Any]:
-        pass
+    def query_smart_contract(self, contract_index: Optional[int] = None, input_type: Optional[int] = None, input_size: Optional[int] = None, request_Data: Optional[str] = None) -> Dict[str, Any]:
+
+        params = {
+            "contractIndex": contract_index,
+            "inputType": 0,
+            "inputSize": input_size,
+            "requestData": request_Data
+        }
+        
+        try:
+            response = requests.post(f'{self.base_url}{QUERY_SC}', params=params, timeout=TIMEOUT)
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None
+
 
     def get_tick_info(self) -> Dict[str, Any]:
 
