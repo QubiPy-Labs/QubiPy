@@ -5,6 +5,7 @@ allowing for clearer handling of errors and failure messages.
 """
 
 class QubiPy_Exceptions(Exception):
+    
     """Custom exceptions for the class"""
 
     INVALID_TICK_ERROR = 'You need to enter a valid tick number'
@@ -22,3 +23,5 @@ class QubiPy_Exceptions(Exception):
     INVALID_EPOCH = 'You need to enter a valid epoch'
 
     INVALID_PAGES = 'Page size must be between 1 and 100'
+
+    INVALID_DATA_FORMAT = 'Invalid data format detected, please try again'

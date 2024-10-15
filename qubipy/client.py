@@ -12,6 +12,7 @@ from endpoints import *
 from config import *
 import base64
 import json
+from utils import *
 
 class QubiPy:
     def __init__(self, base_url: str = BASE_URL, timeout=TIMEOUT):
@@ -301,7 +302,7 @@ class QubiPy:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction status: {str(E)}") from None
     
-    def get_transfer_transactions_per_tick(self, identity: Optional[str] = None, startTick: Optional[str] = None, endTick: Optional[str] = None) -> Dict[str, Any]:
+    def get_transfer_transactions_per_tick(self, identity: Optional[str] = None, start_tick: Optional[int] = None, end_tick: Optional[int] = None) -> Dict[str, Any]:
 
         """
         Retrieves transfer transactions for a specific identity within a specified range of ticks from the API.
@@ -324,14 +325,16 @@ class QubiPy:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
     
         
-        if not startTick or not endTick:
+        if not start_tick or not end_tick:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_START_TICK_AND_END_TICK)
+        
+        check_ticks_format(start_tick, end_tick)
         
         endpoint = TRANSFER_TRANSACTIONS_PER_TICK.format(id = identity)
 
         params = {
-            'startTick': startTick,
-            'endTick': endTick
+            'startTick': start_tick,
+            'endTick': end_tick
         }
 
         try:
@@ -564,6 +567,8 @@ class QubiPy:
         if not page_1 or not page_size:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_PAGES)
         
+        check_pages_format(page_1, page_size)
+        
         payload = {
             'page': page_1,
             'pageSize': page_size
@@ -573,7 +578,7 @@ class QubiPy:
             response = requests.get(f'{self.base_url}{RICH_LIST}', params=payload, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
-            return data
+            return data.get('richList', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
 
