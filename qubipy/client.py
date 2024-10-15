@@ -581,8 +581,3 @@ class QubiPy:
             return data.get('richList', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
-
-
-if __name__ == '__main__':
-    a = QubiPy()
-    print(a.get_rich_list('1'))
