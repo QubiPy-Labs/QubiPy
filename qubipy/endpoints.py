@@ -45,3 +45,5 @@ POSSESSED_ASSETS = '/assets/{identity}/possessed'
 BLOCK_HEIGHT = '/block-height'
 
 LATEST_STATS = '/latest-stats'
+
+RICH_LIST = '/rich-list'

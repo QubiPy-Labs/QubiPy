@@ -18,4 +18,7 @@ class QubiPy_Exceptions(Exception):
     INVALID_EPOCH = 'You need to enter a valid epoch'
 
     INVALID_JSON_RESPONSE = 'Invalid JSON response from the API.'
+
     INVALID_EPOCH = 'You need to enter a valid epoch'
+
+    INVALID_PAGES = 'Page size must be between 1 and 100'

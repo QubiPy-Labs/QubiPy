@@ -557,3 +557,27 @@ class QubiPy:
             return data.get('data', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the latest stats from the RPC Server: {str(E)}") from None
+    
+
+    def get_rich_list(self, page_1: Optional[int] = None, page_size: Optional[int] = None) -> Dict[str, Any]:
+
+        if not page_1 or not page_size:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_PAGES)
+        
+        payload = {
+            'page': page_1,
+            'pageSize': page_size
+        }
+
+        try:
+            response = requests.get(f'{self.base_url}{RICH_LIST}', params=payload, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
+
+
+if __name__ == '__main__':
+    a = QubiPy()
+    print(a.get_rich_list('1'))
