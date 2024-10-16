@@ -15,7 +15,7 @@ from qubipy.utils import *
 import base64
 import json
 
-class QubiPy:
+class QubiPy_RPC:
     def __init__(self, rpc_url: str = RPC_URL, timeout=TIMEOUT):
         self.rpc_url = rpc_url
         self.timeout = timeout
