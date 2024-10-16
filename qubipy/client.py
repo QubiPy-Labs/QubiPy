@@ -15,9 +15,10 @@ import json
 from utils import *
 
 class QubiPy:
-    def __init__(self, base_url: str = BASE_URL, timeout=TIMEOUT):
-        self.base_url = base_url
+    def __init__(self, rpc_url: str = RPC_URL, timeout=TIMEOUT):
+        self.rpc_url = rpc_url
         self.timeout = timeout
+
     
     def get_latest_tick(self) -> Dict[str, Any]:
         """
@@ -31,7 +32,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.base_url}{LATEST_TICK}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{LATEST_TICK}', timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data.get('latestTick', {})
@@ -57,7 +58,7 @@ class QubiPy:
         })
         try:
             response = requests.post(
-                f'{self.base_url}{BROADCAST_TRANSACTION}',
+                f'{self.rpc_url}{BROADCAST_TRANSACTION}',
                 data=payload,
                 headers={'Content-Type': 'application/json'},
                 timeout=self.timeout
@@ -99,7 +100,7 @@ class QubiPy:
         endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick_number = tick)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=TIMEOUT)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=TIMEOUT)
             response.raise_for_status()
             data = response.json()
             return data.get('approvedTransactions', {})
@@ -130,7 +131,7 @@ class QubiPy:
         endpoint = WALLET_BALANCE.format(id = wallet_id)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data.get('balance', {})
@@ -150,7 +151,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.base_url}{STATUS}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{STATUS}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data  
@@ -179,7 +180,7 @@ class QubiPy:
         endpoint = CHAIN_HASH.format(tick = tick_number)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('hexDigest', {})
@@ -208,7 +209,7 @@ class QubiPy:
         endpoint = QUORUM_TICK_DATA.format(tick = tick_number)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
@@ -237,7 +238,7 @@ class QubiPy:
         endpoint = STORE_HASH.format(tick = tick_number)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
@@ -266,7 +267,7 @@ class QubiPy:
         endpoint = TRANSACTION.format(tx_id = tx_id)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('transaction', {})
@@ -295,7 +296,7 @@ class QubiPy:
         endpoint = TRANSACTION_STATUS.format(tx_id = tx_id)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('transactionStatus', {})
@@ -338,7 +339,7 @@ class QubiPy:
         }
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', params=payload, timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', params=payload, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
@@ -360,7 +361,7 @@ class QubiPy:
         endpoint = HEALTH_CHECK
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
@@ -390,7 +391,7 @@ class QubiPy:
         
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('computors', {})
@@ -407,7 +408,7 @@ class QubiPy:
         }
         
         try:
-            response = requests.post(f'{self.base_url}{QUERY_SC}', params=payload, timeout=TIMEOUT)
+            response = requests.post(f'{self.rpc_url}{QUERY_SC}', params=payload, timeout=TIMEOUT)
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None
 
@@ -425,7 +426,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.base_url}{TICK_INFO}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{TICK_INFO}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('tickInfo', {})
@@ -454,7 +455,7 @@ class QubiPy:
         endpoint = ISSUED_ASSETS.format(identity = identity)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('issuedAssets', {})
@@ -483,7 +484,7 @@ class QubiPy:
         endpoint = OWNED_ASSETS.format(identity = identity)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('ownedAssets', {})
@@ -512,7 +513,7 @@ class QubiPy:
         endpoint = POSSESSED_ASSETS.format(identity = identity)
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('possessedAssets', {})
@@ -533,7 +534,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.base_url}{BLOCK_HEIGHT}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{BLOCK_HEIGHT}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('blockHeight', {})
@@ -554,7 +555,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.base_url}{LATEST_STATS}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{LATEST_STATS}', timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('data', {})
@@ -575,9 +576,10 @@ class QubiPy:
         }
 
         try:
-            response = requests.get(f'{self.base_url}{RICH_LIST}', params=payload, timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{RICH_LIST}', params=payload, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('richList', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
+
