@@ -10,7 +10,7 @@ import json
 
 from qubipy.exceptions import *
 from qubipy.config import *
-from qubipy.endpoints import *
+from qubipy.endpoints_rpc import *
 from qubipy.utils import *
 import base64
 import json
