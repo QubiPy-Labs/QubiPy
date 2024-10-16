@@ -4,6 +4,8 @@ Defines the endpoints used by the Qubic CORE API.
 This facilitates the centralization of routes and their possible future update.
 """
 
+# CORE SERVICE
+
 COMPUTORS = '/core/getComputors'
 
 ENTITY_INFO = '/core/getEntityInfo'
@@ -15,6 +17,8 @@ TICK_INFO = '/core/getTickInfo'
 TICK_QUORUM_VOTE = '/core/getTickQuorumVote'
 
 TICK_TRANSACTIONS = '/core/getTickTransactions'
+
+TICK_TRANSACTION_STATUS = '/core/getTickTransactionsStatus'
 
 # QUOTTERY SERVICE
 
