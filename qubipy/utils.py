@@ -3,7 +3,7 @@ utils.py
 Auxiliary functions for validations, data formatting, response handling, etc.
 Example: input parameter validation or API response cleanup.
 """
-from exceptions import *
+from qubipy.exceptions import *
 
 def check_pages_format(page_1: int, page_2: int):
 
