@@ -565,6 +565,21 @@ class QubiPy:
 
     def get_rich_list(self, page_1: Optional[int] = None, page_size: Optional[int] = None) -> Dict[str, Any]:
 
+        """
+        Retrieves the rich list from the RPC server based on the provided page and page size.
+
+        Args:
+            page_1 (Optional[int], optional): The page number to retrieve. Must be a positive integer.
+            page_size (Optional[int], optional): The number of entries per page. Must be a positive integer.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the rich list data. If no data is available, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If page_1 or page_size are not provided or are invalid, 
+                            or if there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         if not page_1 or not page_size:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_PAGES)
         
