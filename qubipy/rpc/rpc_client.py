@@ -1,18 +1,19 @@
 """
-client.py
-This file contains the main QubiPy Client class which handles
+rpc_client.py
+This file contains the main QubiPy_RPC Client class which handles
 the interaction with the Qubic API, making HTTP requests and handling responses.
 """
 
 import requests
 from typing import Optional, Dict, Any
 import json
-from exceptions import QubiPy_Exceptions
-from endpoints import *
-from config import *
+
+from qubipy.exceptions import *
+from qubipy.config import *
+from qubipy.endpoints import *
+from qubipy.utils import *
 import base64
 import json
-from utils import *
 
 class QubiPy:
     def __init__(self, rpc_url: str = RPC_URL, timeout=TIMEOUT):
@@ -598,3 +599,6 @@ class QubiPy:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
 
+
+if __name__ == '__main__':
+    print('hello world')
