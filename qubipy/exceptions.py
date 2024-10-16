@@ -27,3 +27,5 @@ class QubiPy_Exceptions(Exception):
     INVALID_DATA_FORMAT = 'Invalid data format detected, please try again'
 
     INVALID_BET_ID = 'Invalid bet ID, try again'
+
+    INVALID_BET_OPTIONS = 'Invalid bet options and bet ID'
