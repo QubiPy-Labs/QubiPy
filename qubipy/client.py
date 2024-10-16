@@ -332,13 +332,13 @@ class QubiPy:
         
         endpoint = TRANSFER_TRANSACTIONS_PER_TICK.format(id = identity)
 
-        params = {
+        payload = {
             'startTick': start_tick,
             'endTick': end_tick
         }
 
         try:
-            response = requests.get(f'{self.base_url}{endpoint}', params=params, timeout=self.timeout)
+            response = requests.get(f'{self.base_url}{endpoint}', params=payload, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
@@ -399,7 +399,7 @@ class QubiPy:
     
     def query_smart_contract(self, contract_index: Optional[int] = None, input_type: Optional[int] = None, input_size: Optional[int] = None, request_Data: Optional[str] = None) -> Dict[str, Any]:
 
-        params = {
+        payload = {
             "contractIndex": contract_index,
             "inputType": 0,
             "inputSize": input_size,
@@ -407,7 +407,7 @@ class QubiPy:
         }
         
         try:
-            response = requests.post(f'{self.base_url}{QUERY_SC}', params=params, timeout=TIMEOUT)
+            response = requests.post(f'{self.base_url}{QUERY_SC}', params=payload, timeout=TIMEOUT)
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None
 
