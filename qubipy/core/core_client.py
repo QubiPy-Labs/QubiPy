@@ -375,3 +375,14 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting bet info by id: {str(E)}') from None
     
+    """ QX SERVICES """
+
+    def get_qx_fees(self) -> Dict[str, Any]:
+        try:
+            response = requests.get(f'{self.core_url}{QX_FEES}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status() # Raise an exception for bad HTTP status codes
+            data = response.json()
+            return data
+        except requests.RequestException as E:
+            raise QubiPy_Exceptions(f"Error when getting QX fees: {str(E)}") from None
+    
