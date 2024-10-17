@@ -48,7 +48,7 @@ CORE = core_client.QubiPy_core()
 print(CORE.get_entity_info('PEKBRHZQKMGCQBTAHXHZRXQRLBACJIHAGWHMPIJTZBWIJVTIWQOVMGJDTPFO'))
 ```
 Reponse :
-```json
+```python
 $ {
   "entity": {
     "id": "PEKBRHZQKMGCQBTAHXHZRXQRLBACJIHAGWHMPIJTZBWIJVTIWQOVMGJDTPFO",
