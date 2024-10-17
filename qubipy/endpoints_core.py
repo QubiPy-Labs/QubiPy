@@ -31,3 +31,15 @@ BASIC_INFO = '/quottery/getBasicInfo'
 BET_INFO = '/quottery/getBetInfo'
 
 BETTORS_BY_BET_OPTIONS = '/quottery/getBettorsByBetOption'
+
+# QX SERVICE
+
+QX_ASSET_ASK_ORDERS = '/qx/getAssetAskOrders'
+
+QX_ASSET_BID_ORDERS = '/qx/getAssetBidOrders'
+
+QX_ENTITY_ASK_ORDERS = '/qx/getEntityAskOrders'
+
+QX_ENTITY_BID_ORDERS = '/qx/getEntityBidOrders'
+
+QX_FEES = '/qx/getFees'
