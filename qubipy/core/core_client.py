@@ -395,6 +395,26 @@ class QubiPy_Core:
             return data
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting QX data: {str(E)}') from None
+        
+    def get_qx_asset_bid_orders(self, asset_name: Optional[str] = None, issuer_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+
+        if not asset_name or not issuer_id:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
+        
+        payload = {
+            'assetName': asset_name,
+            'issuerId': issuer_id,
+            'offset': offset,
+        }
+
+        try:
+            response = requests.get(f'{self.core_url}{QX_ASSET_BID_ORDERS}', headers=HEADERS, params=payload, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except requests.RequestException as E:
+            raise QubiPy_Exceptions(f'Error when getting QX ask orders: {str(E)}') from None
+
 
     def get_qx_fees(self) -> Dict[str, Any]:
         try:
