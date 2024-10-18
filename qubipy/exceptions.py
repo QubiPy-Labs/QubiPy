@@ -29,3 +29,5 @@ class QubiPy_Exceptions(Exception):
     INVALID_BET_ID = 'Invalid bet ID, try again'
 
     INVALID_BET_OPTIONS = 'Invalid bet options and bet ID'
+
+    INVALID_QX_ASSET_DATA = 'Invalid QX data, check your asset name, issuer id and offest'
