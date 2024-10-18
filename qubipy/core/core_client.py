@@ -414,6 +414,24 @@ class QubiPy_Core:
             return data
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting QX ask orders: {str(E)}') from None
+    
+    def get_qx_entity_ask_orders(self, entity_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+
+        if not entity_id:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
+        
+        payload = {
+            'entityId': entity_id,
+            'offset': offset,
+        }
+
+        try:
+            response = requests.get(f'{self.core_url}{QX_ENTITY_ASK_ORDERS}', headers=HEADERS, params=payload, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except requests.RequestException as E:
+            raise QubiPy_Exceptions(f'Error when getting QX entity ask orders: {str(E)}') from None
 
 
     def get_qx_fees(self) -> Dict[str, Any]:
