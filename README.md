@@ -27,14 +27,14 @@ from qubipy.rpc import rpc_client
 from qubipy.core import core_client
 ```
 
-Let's request tick info the RPC for example :
+Let's request tick info from the RPC for example :
 
 ```python
 RPC = rpc_client.QubiPy_RPC()
 print(RPC.get_tick_info())
 ```
 Response :
-```python
+```json
 $ {
   "tick": 16660254,
   "duration": 1,
