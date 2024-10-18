@@ -34,7 +34,7 @@ RPC = rpc_client.QubiPy_RPC()
 print(RPC.get_tick_info())
 ```
 Response :
-```json
+```python
 $ {
   "tick": 16660254,
   "duration": 1,
