@@ -1,7 +1,7 @@
+import os
 import ctypes
 
-# Load the KeyUtils DLL
-lib = ctypes.CDLL("./KeyUtils.dll")
+lib = ctypes.CDLL(os.path.join(os.path.dirname(__file__), "crypto.dll"))
 
 # Define argument and return types for ctypes bindings
 
