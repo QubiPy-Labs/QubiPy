@@ -193,15 +193,3 @@ def verify(publicKey: bytes, messageDigest: bytes, signature: bytes) -> bool:
     messageDigest_array = (ctypes.c_uint8 * len(messageDigest)).from_buffer_copy(messageDigest)
     signature_array = (ctypes.c_uint8 * len(signature)).from_buffer_copy(signature)
     return bool(lib.verify(publicKey_array, messageDigest_array, signature_array))
-
-# Example usage
-
-seed = "wqbdupxgcaimwdsnchitjmsplzclkqokhadgehdxqogeeiovzvadstt"
-publicId = "SUZFFQSCVPHYYBDCQODEMFAOKRJDDDIRJFFIWFLRDDJQRPKMJNOCSSKHXHGK"
-
-subseed = getSubseedFromSeed(bytes(seed, 'utf-8'))
-privateKey = getPrivateKeyFromSubSeed(subseed)
-publicKey = getPublicKeyFromPrivateKey(privateKey)
-identity = getIdentityFromPublicKey(publicKey)
-
-print(identity == publicId)
