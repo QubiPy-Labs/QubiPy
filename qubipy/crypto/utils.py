@@ -116,7 +116,7 @@ def get_subseed_from_seed(seed: bytes) -> bytes:
     success = lib.getSubseedFromSeed(seed_array, subseed)
     if not success:
         raise ValueError("Invalid seed: must contain only lowercase letters a-z.")
-    return subseed
+    return bytes(subseed)
 
 def get_private_key_from_subseed(subseed: bytes) -> bytes:
     """
@@ -137,7 +137,7 @@ def get_private_key_from_subseed(subseed: bytes) -> bytes:
     private_key = (ctypes.c_uint8 * 32)()
     subseed_array = (ctypes.c_uint8 * len(subseed)).from_buffer_copy(subseed)
     lib.getPrivateKeyFromSubSeed(subseed_array, private_key)
-    return private_key
+    return bytes(private_key)
 
 def get_public_key_from_private_key(private_key: bytes) -> bytes:
     """
@@ -158,7 +158,7 @@ def get_public_key_from_private_key(private_key: bytes) -> bytes:
     public_key = (ctypes.c_uint8 * 32)()
     private_key_array = (ctypes.c_uint8 * len(private_key)).from_buffer_copy(private_key)
     lib.getPublicKeyFromPrivateKey(private_key_array, public_key)
-    return public_key
+    return bytes(public_key)
 
 def get_identity_from_public_key(public_key: bytes, is_lower_case: bool = False) -> str:
     """
@@ -201,7 +201,7 @@ def get_tx_hash_from_digest(digest: bytes) -> bytes:
     tx_hash = (ctypes.c_uint8 * 32)()
     digest_array = (ctypes.c_uint8 * len(digest)).from_buffer_copy(digest)
     lib.getTxHashFromDigest(digest_array, tx_hash)
-    return tx_hash
+    return bytes(tx_hash)
 
 def get_public_key_from_identity(identity: str) -> bytes:
     """
@@ -222,7 +222,7 @@ def get_public_key_from_identity(identity: str) -> bytes:
     public_key = (ctypes.c_uint8 * 32)()
     identity_bytes = identity.encode('utf-8')
     lib.getPublicKeyFromIdentity(identity_bytes, public_key)
-    return public_key
+    return bytes(public_key)
 
 def check_sum_identity(identity: str) -> bool:
     """
@@ -258,7 +258,7 @@ def kangaroo_twelve(input: bytes, input_byte_len: int, output_byte_len: int) -> 
     output = (ctypes.c_uint8 * output_byte_len)()
     input_array = (ctypes.c_uint8 * len(input)).from_buffer_copy(input)
     lib.KangarooTwelve(input_array, input_byte_len, output, output_byte_len)
-    return output
+    return bytes(output)
 
 def get_digest_from_siblings32(
     depth: int,
@@ -309,7 +309,7 @@ def get_digest_from_siblings32(
         siblings_array,
         output
     )
-    return output
+    return bytes(output)
 
 def sign_with_nonce_k(k: bytes, public_key: bytes, message_digest: bytes) -> bytes:
     """
@@ -329,7 +329,7 @@ def sign_with_nonce_k(k: bytes, public_key: bytes, message_digest: bytes) -> byt
     public_key_array = (ctypes.c_uint8 * len(public_key)).from_buffer_copy(public_key)
     message_digest_array = (ctypes.c_uint8 * len(message_digest)).from_buffer_copy(message_digest)
     lib.signWithNonceK(k_array, public_key_array, message_digest_array, signature)
-    return signature
+    return bytes(signature)
 
 def sign(subseed: bytes, public_key: bytes, message_digest: bytes) -> bytes:
     """
@@ -349,7 +349,7 @@ def sign(subseed: bytes, public_key: bytes, message_digest: bytes) -> bytes:
     public_key_array = (ctypes.c_uint8 * len(public_key)).from_buffer_copy(public_key)
     message_digest_array = (ctypes.c_uint8 * len(message_digest)).from_buffer_copy(message_digest)
     lib.sign(subseed_array, public_key_array, message_digest_array, signature)
-    return signature
+    return bytes(signature)
 
 def verify(public_key: bytes, message_digest: bytes, signature: bytes) -> bool:
     """
