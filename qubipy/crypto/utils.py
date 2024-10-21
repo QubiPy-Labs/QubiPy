@@ -87,7 +87,7 @@ lib.verify.restype = ctypes.c_bool
 
 
 # Python wrapper functions
-def getSubseedFromSeed(seed: bytes) -> bytes:
+def get_subseed_from_seed(seed: bytes) -> bytes:
     """
     Generates a subseed from the provided seed.
 
@@ -110,7 +110,7 @@ def getSubseedFromSeed(seed: bytes) -> bytes:
         raise ValueError("Invalid seed: must contain only lowercase letters a-z.")
     return subseed
 
-def getPrivateKeyFromSubSeed(subseed: bytes) -> bytes:
+def get_private_key_from_subseed(subseed: bytes) -> bytes:
     """
     Derives a private key from the provided subseed.
 
@@ -126,17 +126,17 @@ def getPrivateKeyFromSubSeed(subseed: bytes) -> bytes:
 
     if len(subseed) != 32:
         raise ValueError("Subseed must be exactly 55 bytes long.")
-    privateKey = (ctypes.c_uint8 * 32)()
+    private_key = (ctypes.c_uint8 * 32)()
     subseed_array = (ctypes.c_uint8 * len(subseed)).from_buffer_copy(subseed)
-    lib.getPrivateKeyFromSubSeed(subseed_array, privateKey)
-    return privateKey
+    lib.getPrivateKeyFromSubSeed(subseed_array, private_key)
+    return private_key
 
-def getPublicKeyFromPrivateKey(privateKey: bytes) -> bytes:
+def get_public_key_from_private_key(private_key: bytes) -> bytes:
     """
     Generates a public key from the provided private key.
 
     Args:
-        privateKey (bytes): A 32-byte private key used to generate the public key.
+        private_key (bytes): A 32-byte private key used to generate the public key.
 
     Returns:
         bytes: A 32-byte public key.
@@ -145,20 +145,20 @@ def getPublicKeyFromPrivateKey(privateKey: bytes) -> bytes:
         ValueError: If the private key is not exactly 32 bytes long.
     """
 
-    if len(privateKey) != 32:
+    if len(private_key) != 32:
         raise ValueError("Private key must be exactly 32 bytes long.")
-    publicKey = (ctypes.c_uint8 * 32)()
-    privateKey_array = (ctypes.c_uint8 * len(privateKey)).from_buffer_copy(privateKey)
-    lib.getPublicKeyFromPrivateKey(privateKey_array, publicKey)
-    return publicKey
+    public_key = (ctypes.c_uint8 * 32)()
+    private_key_array = (ctypes.c_uint8 * len(private_key)).from_buffer_copy(private_key)
+    lib.getPublicKeyFromPrivateKey(private_key_array, public_key)
+    return public_key
 
-def getIdentityFromPublicKey(publicKey: bytes, isLowerCase: bool = False) -> str:
+def get_identity_from_public_key(public_key: bytes, is_lower_case: bool = False) -> str:
     """
     Derives an identity string from the provided public key.
 
     Args:
-        publicKey (bytes): A 32-byte public key used to generate the identity.
-        isLowerCase (bool, optional): Flag to determine if the identity should be in lowercase. Defaults to False.
+        public_key (bytes): A 32-byte public key used to generate the identity.
+        is_lower_case (bool, optional): Flag to determine if the identity should be in lowercase. Defaults to False.
 
     Returns:
         str: A 60-character identity string.
@@ -167,14 +167,14 @@ def getIdentityFromPublicKey(publicKey: bytes, isLowerCase: bool = False) -> str
         ValueError: If the public key is not exactly 32 bytes long.
     """
 
-    if len(publicKey) != 32:
+    if len(public_key) != 32:
         raise ValueError("Public key must be exactly 32 bytes long.")
     identity = (ctypes.c_char * 60)()
-    publicKey_array = (ctypes.c_uint8 * len(publicKey)).from_buffer_copy(publicKey)
-    lib.getIdentityFromPublicKey(publicKey_array, identity, ctypes.c_bool(isLowerCase))
+    public_key_array = (ctypes.c_uint8 * len(public_key)).from_buffer_copy(public_key)
+    lib.getIdentityFromPublicKey(public_key_array, identity, ctypes.c_bool(is_lower_case))
     return bytes(identity).decode('ascii')
 
-def getTxHashFromDigest(digest: bytes) -> bytes:
+def get_tx_hash_from_digest(digest: bytes) -> bytes:
     """
     Generates a transaction hash from the provided digest.
 
@@ -190,12 +190,12 @@ def getTxHashFromDigest(digest: bytes) -> bytes:
 
     if len(digest) != 32:
         raise ValueError("Digest must be exactly 32 bytes long.")
-    txHash = (ctypes.c_uint8 * 32)()
+    tx_hash = (ctypes.c_uint8 * 32)()
     digest_array = (ctypes.c_uint8 * len(digest)).from_buffer_copy(digest)
-    lib.getTxHashFromDigest(digest_array, txHash)
-    return txHash
+    lib.getTxHashFromDigest(digest_array, tx_hash)
+    return tx_hash
 
-def getPublicKeyFromIdentity(identity: str) -> bytes:
+def get_public_key_from_identity(identity: str) -> bytes:
     """
     Retrieves a public key from the provided identity string.
 
@@ -211,12 +211,12 @@ def getPublicKeyFromIdentity(identity: str) -> bytes:
 
     if len(identity) != 60:
         raise ValueError("Identity must be exactly 60 characters long.")
-    publicKey = (ctypes.c_uint8 * 32)()
+    public_key = (ctypes.c_uint8 * 32)()
     identity_bytes = identity.encode('utf-8')
-    lib.getPublicKeyFromIdentity(identity_bytes, publicKey)
-    return publicKey
+    lib.getPublicKeyFromIdentity(identity_bytes, public_key)
+    return public_key
 
-def checkSumIdentity(identity: str) -> bool:
+def check_sum_identity(identity: str) -> bool:
     """
     Validates the checksum of the provided identity string.
 
@@ -235,7 +235,7 @@ def checkSumIdentity(identity: str) -> bool:
     identity_bytes = identity.encode('utf-8')
     return bool(lib.checkSumIdentity(identity_bytes))
 
-def getDigestFromSiblings32(
+def get_digest_from_siblings32(
     depth: int,
     input_bytes: bytes,
     input_byte_len: int,
@@ -286,14 +286,14 @@ def getDigestFromSiblings32(
     )
     return output
 
-def signWithNonceK(k: bytes, publicKey: bytes, messageDigest: bytes) -> bytes:
+def sign_with_nonce_k(k: bytes, public_key: bytes, message_digest: bytes) -> bytes:
     """
     Generates a signature using a nonce k, public key, and message digest.
 
     Args:
         k (bytes): A nonce value used in signing.
-        publicKey (bytes): A 32-byte public key.
-        messageDigest (bytes): A 32-byte message digest to sign.
+        public_key (bytes): A 32-byte public key.
+        message_digest (bytes): A 32-byte message digest to sign.
 
     Returns:
         bytes: A 64-byte signature.
@@ -301,19 +301,19 @@ def signWithNonceK(k: bytes, publicKey: bytes, messageDigest: bytes) -> bytes:
 
     signature = (ctypes.c_uint8 * 64)()
     k_array = (ctypes.c_uint8 * len(k)).from_buffer_copy(k)
-    publicKey_array = (ctypes.c_uint8 * len(publicKey)).from_buffer_copy(publicKey)
-    messageDigest_array = (ctypes.c_uint8 * len(messageDigest)).from_buffer_copy(messageDigest)
-    lib.signWithNonceK(k_array, publicKey_array, messageDigest_array, signature)
+    public_key_array = (ctypes.c_uint8 * len(public_key)).from_buffer_copy(public_key)
+    message_digest_array = (ctypes.c_uint8 * len(message_digest)).from_buffer_copy(message_digest)
+    lib.signWithNonceK(k_array, public_key_array, message_digest_array, signature)
     return signature
 
-def sign(subseed: bytes, publicKey: bytes, messageDigest: bytes) -> bytes:
+def sign(subseed: bytes, public_key: bytes, message_digest: bytes) -> bytes:
     """
     Generates a signature using a subseed, public key, and message digest.
 
     Args:
         subseed (bytes): A 32-byte subseed used in signing.
-        publicKey (bytes): A 32-byte public key.
-        messageDigest (bytes): A 32-byte message digest to sign.
+        public_key (bytes): A 32-byte public key.
+        message_digest (bytes): A 32-byte message digest to sign.
 
     Returns:
         bytes: A 64-byte signature.
@@ -321,25 +321,25 @@ def sign(subseed: bytes, publicKey: bytes, messageDigest: bytes) -> bytes:
 
     signature = (ctypes.c_uint8 * 64)()
     subseed_array = (ctypes.c_uint8 * len(subseed)).from_buffer_copy(subseed)
-    publicKey_array = (ctypes.c_uint8 * len(publicKey)).from_buffer_copy(publicKey)
-    messageDigest_array = (ctypes.c_uint8 * len(messageDigest)).from_buffer_copy(messageDigest)
-    lib.sign(subseed_array, publicKey_array, messageDigest_array, signature)
+    public_key_array = (ctypes.c_uint8 * len(public_key)).from_buffer_copy(public_key)
+    message_digest_array = (ctypes.c_uint8 * len(message_digest)).from_buffer_copy(message_digest)
+    lib.sign(subseed_array, public_key_array, message_digest_array, signature)
     return signature
 
-def verify(publicKey: bytes, messageDigest: bytes, signature: bytes) -> bool:
+def verify(public_key: bytes, message_digest: bytes, signature: bytes) -> bool:
     """
     Verifies the provided signature against the public key and message digest.
 
     Args:
-        publicKey (bytes): A 32-byte public key.
-        messageDigest (bytes): A 32-byte message digest.
+        public_key (bytes): A 32-byte public key.
+        message_digest (bytes): A 32-byte message digest.
         signature (bytes): A 64-byte signature to verify.
 
     Returns:
         bool: True if the signature is valid, False otherwise.
     """
 
-    publicKey_array = (ctypes.c_uint8 * len(publicKey)).from_buffer_copy(publicKey)
-    messageDigest_array = (ctypes.c_uint8 * len(messageDigest)).from_buffer_copy(messageDigest)
+    public_key_array = (ctypes.c_uint8 * len(public_key)).from_buffer_copy(public_key)
+    message_digest_array = (ctypes.c_uint8 * len(message_digest)).from_buffer_copy(message_digest)
     signature_array = (ctypes.c_uint8 * len(signature)).from_buffer_copy(signature)
-    return bool(lib.verify(publicKey_array, messageDigest_array, signature_array))
+    return bool(lib.verify(public_key_array, message_digest_array, signature_array))
