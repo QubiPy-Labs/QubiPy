@@ -1,3 +1,8 @@
+"""
+crypto/utils.py
+This file contains key management and schnorrq signature functions for Qubic Network.
+"""
+
 import os
 import ctypes
 
