@@ -41,7 +41,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting computors: {str(E)}') from None
     
-    def get_entity_info(self, id: Optional[str] = None) -> Dict[str, Any]:
+    def get_entity_info(self, id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves information about a specific entity from the core server based on the provided entity ID.
@@ -73,7 +73,7 @@ class QubiPy_Core:
             raise QubiPy_Exceptions(f'Error when getting entity info: {str(E)}') from None
 
     
-    def get_tick_data(self, tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_tick_data(self, tick: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves tick data from the core server for the specified tick value.
@@ -127,7 +127,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting tick info: {str(E)}') from None
     
-    def get_tick_quorum_vote(self, tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_tick_quorum_vote(self, tick: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves quorum vote data for a specific tick from the core server.
@@ -160,7 +160,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting tick quorum vote: {str(E)}') from None
     
-    def get_tick_transactions(self, tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_tick_transactions(self, tick: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves transaction data for a specific tick from the core server.
@@ -193,7 +193,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting tick transactions: {str(E)}') from None
         
-    def get_tick_transactions_status(self, tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_tick_transactions_status(self, tick: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the status of transactions for a specific tick from the core server.
@@ -249,7 +249,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting active bets: {str(E)}') from None
     
-    def get_active_bets_by_creator(self, creator_id: Optional[str] = None) -> Dict[str, Any]:
+    def get_active_bets_by_creator(self, creator_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of active bets created by a specific creator from the core server.
@@ -304,7 +304,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting computors: {str(E)}') from None
     
-    def get_bet_info(self, bet_id: Optional[int] = None) -> Dict[str, Any]:
+    def get_bet_info(self, bet_id: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves information about a specific bet using its ID from the core server.
@@ -338,7 +338,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting bet info by id: {str(E)}') from None
         
-    def get_bettors_by_bet_options(self, bet_id: Optional[int] = None, bet_option: Optional[int] = None) -> Dict[str, Any]:
+    def get_bettors_by_bet_options(self, bet_id: int | None = None, bet_option: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves a list of bettors for a specific bet and bet option from the core server.
@@ -377,7 +377,7 @@ class QubiPy_Core:
     
     """ QX SERVICES """
 
-    def get_qx_asset_ask_orders(self, asset_name: Optional[str] = None, issuer_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+    def get_qx_asset_ask_orders(self, asset_name: str | None = None, issuer_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
         if not asset_name or not issuer_id or not offset:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
@@ -396,7 +396,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting QX data: {str(E)}') from None
         
-    def get_qx_asset_bid_orders(self, asset_name: Optional[str] = None, issuer_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+    def get_qx_asset_bid_orders(self, asset_name: str | None = None, issuer_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
 
         if not asset_name or not issuer_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
@@ -415,7 +415,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting QX ask orders: {str(E)}') from None
     
-    def get_qx_entity_ask_orders(self, entity_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+    def get_qx_entity_ask_orders(self, entity_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
         if not entity_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
@@ -433,7 +433,7 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting QX entity ask orders: {str(E)}') from None
     
-    def get_qx_entity_bid_orders(self, entity_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+    def get_qx_entity_bid_orders(self, entity_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
         if not entity_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
