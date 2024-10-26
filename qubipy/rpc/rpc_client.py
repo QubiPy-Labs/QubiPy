@@ -5,7 +5,7 @@ the interaction with the Qubic API, making HTTP requests and handling responses.
 """
 
 import requests
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 import json
 
 from qubipy.exceptions import *
@@ -80,7 +80,7 @@ class QubiPy_RPC:
         except requests.RequestException as e:
             raise QubiPy_Exceptions(f'Error broadcasting the transaction: {str(e)}') from None
 
-    def get_approved_transaction_for_tick(self, tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_approved_transaction_for_tick(self, tick: int | None = None) -> Dict[str, Any]:
         """
         Retrieves the approved transactions for a specific tick (block height) from the API.
 
@@ -109,7 +109,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the approved transactions from the API: {str(E)}") from None
     
-    def get_balance(self, wallet_id: str = None) -> Dict[str, Any]:
+    def get_balance(self, wallet_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the balance of a specific wallet from the API.
@@ -159,7 +159,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the RPC status: {str(E)}") from None
     
-    def get_chain_hash(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_chain_hash(self, tick_number: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the chain hash (hexadecimal digest) for a specific tick number from the API.
@@ -188,7 +188,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the chain hash: {str(E)}") from None
     
-    def get_quorum_tick_data(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_quorum_tick_data(self, tick_number: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves quorum data for a specific tick (block height) from the API.
@@ -217,7 +217,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the quorum tick data: {str(E)}") from None
 
-    def get_store_hash(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_store_hash(self, tick_number: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the store hash for a specific tick (block height) from the API.
@@ -246,7 +246,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the store hash: {str(E)}") from None
     
-    def get_transaction(self, tx_id: Optional[str] = None) -> Dict[str, Any]:
+    def get_transaction(self, tx_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves transaction data for a specific transaction ID from the API.
@@ -275,7 +275,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction data: {str(E)}") from None
     
-    def get_transaction_status(self, tx_id: Optional[str] = None) -> Dict[str, Any]:
+    def get_transaction_status(self, tx_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the status of a specific transaction using its transaction ID from the API.
@@ -304,7 +304,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction status: {str(E)}") from None
     
-    def get_transfer_transactions_per_tick(self, identity: Optional[str] = None, start_tick: Optional[int] = None, end_tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_transfer_transactions_per_tick(self, identity: str | None = None, start_tick: int | None = None, end_tick: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves transfer transactions for a specific identity within a specified range of ticks from the API.
@@ -369,7 +369,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the health check: {str(E)}") from None
     
-    def get_computors(self, epoch: Optional[int] = None) -> Dict[str, Any]:
+    def get_computors(self, epoch: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves computors associated with a specific epoch from the API.
@@ -434,7 +434,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the tick info data: {str(E)}") from None
     
-    def get_issued_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+    def get_issued_assets(self, identity: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of assets issued by a specific identity from the API.
@@ -463,7 +463,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the list of assets issued by a specific identity: {str(E)}") from None
     
-    def get_owned_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+    def get_owned_assets(self, identity: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of assets owned by a specific identity from the API.
@@ -492,7 +492,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the owned assets: {str(E)}") from None
     
-    def get_possessed_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+    def get_possessed_assets(self, identity: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of assets possessed by a specific identity from the API.
@@ -564,7 +564,7 @@ class QubiPy_RPC:
             raise QubiPy_Exceptions(f"Failed to retrieve the latest stats from the RPC Server: {str(E)}") from None
     
 
-    def get_rich_list(self, page_1: Optional[int] = None, page_size: Optional[int] = None) -> Dict[str, Any]:
+    def get_rich_list(self, page_1: int | None = None, page_size: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the rich list from the RPC server based on the provided page and page size.
