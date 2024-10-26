@@ -5,7 +5,7 @@ the interaction with the Qubic API, making HTTP requests and handling responses.
 """
 
 import requests
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 import json
 
 from qubipy.exceptions import *
