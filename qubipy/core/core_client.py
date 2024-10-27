@@ -12,7 +12,6 @@ from qubipy.exceptions import *
 from qubipy.config import *
 from qubipy.endpoints_core import *
 from qubipy.utils import *
-import base64
 import json
 
 class QubiPy_Core:
@@ -379,6 +378,25 @@ class QubiPy_Core:
 
     def get_qx_asset_ask_orders(self, asset_name: str | None = None, issuer_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
+        """
+        Retrieves ask orders for a specified asset from the QX system.
+
+        Args:
+            asset_name (Optional[str]): The name of the asset for which to retrieve ask orders.
+                                        Must be a valid asset identifier. If not provided, an exception is raised.
+            issuer_id (Optional[str]): The ID of the issuer associated with the asset. 
+                                    Must be a valid issuer identifier. If not provided, an exception is raised.
+            offset (Optional[str]): The offset for pagination in the results. If not provided, an exception is raised.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing ask order details for the specified asset, issuer, and offset.
+                            If no data is available, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If any of the required parameters (`asset_name`, `issuer_id`, or `offset`) is invalid or not provided,
+                            or if there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         if not asset_name or not issuer_id or not offset:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
         
@@ -396,7 +414,25 @@ class QubiPy_Core:
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f'Error when getting QX data: {str(E)}') from None
         
-    def get_qx_asset_bid_orders(self, asset_name: str | None = None, issuer_id: Optional[str] = None, offset: Optional[str] = None) -> Dict[str, Any]:
+    def get_qx_asset_bid_orders(self, asset_name: str | None = None, issuer_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves bid orders for a specified asset from the QX system.
+
+        Args:
+            asset_name (Optional[str]): The name of the asset for which to retrieve bid orders.
+                                        Must be a valid asset identifier. If not provided, an exception is raised.
+            issuer_id (Optional[str]): The ID of the issuer associated with the asset.
+                                    Must be a valid issuer identifier. If not provided, an exception is raised.
+            offset (Optional[str]): The offset for pagination in the results. If not provided, pagination will start from the first result.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing bid order details for the specified asset, issuer, and offset.
+                            If no data is available, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the required parameters (`asset_name` or `issuer_id`) are invalid or not provided,
+        """
 
         if not asset_name or not issuer_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
@@ -417,6 +453,23 @@ class QubiPy_Core:
     
     def get_qx_entity_ask_orders(self, entity_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
+        """
+        Retrieves ask orders for a specified entity from the QX system.
+
+        Args:
+            entity_id (Optional[str]): The unique identifier for the entity whose ask orders are to be retrieved.
+                                    Must be a valid entity ID. If not provided, an exception is raised.
+            offset (Optional[str]): The offset for pagination in the results. If not provided, pagination will start from the first result.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing ask order details for the specified entity and offset.
+                            If no data is available, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the required parameter `entity_id` is invalid or not provided,
+                            or if there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
         if not entity_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
         
@@ -434,6 +487,23 @@ class QubiPy_Core:
             raise QubiPy_Exceptions(f'Error when getting QX entity ask orders: {str(E)}') from None
     
     def get_qx_entity_bid_orders(self, entity_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves bid orders for a specified entity from the QX system.
+
+        Args:
+            entity_id (Optional[str]): The unique identifier for the entity whose bid orders are to be retrieved.
+                                    Must be a valid entity ID. If not provided, an exception is raised.
+            offset (Optional[str]): The offset for pagination in the results. If not provided, pagination will start from the first result.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing bid order details for the specified entity and offset.
+                            If no data is available, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the required parameter `entity_id` is invalid or not provided,
+                            or if there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
 
         if not entity_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_QX_ASSET_DATA)
@@ -453,6 +523,17 @@ class QubiPy_Core:
 
 
     def get_qx_fees(self) -> Dict[str, Any]:
+
+        """
+        Retrieves the current fee structure from the QX system.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing details of the current QX fees.
+                            If no data is available, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
         try:
             response = requests.get(f'{self.core_url}{QX_FEES}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status() # Raise an exception for bad HTTP status codes
