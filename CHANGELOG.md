@@ -1,5 +1,5 @@
 # Change Log
-## v0.2.0-alpha - xx, 2024
+## v0.2.0-alpha - October 27th, 2024
 * QX Support added
 * Qubic key util library implemented
 * Build transaction feature added
