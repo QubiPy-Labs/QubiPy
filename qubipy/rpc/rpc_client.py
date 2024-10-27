@@ -399,7 +399,7 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
     
-    def query_smart_contract(self, contract_index: Optional[int] = None, input_type: Optional[int] = None, input_size: Optional[int] = None, request_Data: Optional[str] = None) -> Dict[str, Any]:
+    """def query_smart_contract(self, contract_index: Optional[int] = None, input_type: Optional[int] = None, input_size: Optional[int] = None, request_Data: Optional[str] = None) -> Dict[str, Any]:
 
         payload = {
             "contractIndex": contract_index,
@@ -410,6 +410,46 @@ class QubiPy_RPC:
         
         try:
             response = requests.post(f'{self.rpc_url}{QUERY_SC}', headers=HEADERS, json=payload, timeout=TIMEOUT)
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None"""
+    
+    def query_smart_contract(self, contract_index: int | None = None, input_type: int | None = None, input_size: int | None = None, request_Data: str | None = None) -> Dict[str, Any]:
+        """
+        Query a smart contract to the Qubic network
+        
+        Args:
+            contractIndex (Optional[int], optional): Contract Index to query
+            inputType (Optional[int], optional): Input type to query
+            inputSize (Optional[int], optional): The input size to query
+            requestData (Optional[str], optional): The request data to query the smart contract
+            
+        Returns:
+            Dict[str, Any]: The response from the API after querying the smart contract.
+            
+        Raises:
+            QubiPy_Exceptions: If the request data is invalid base64 encoded string.
+            QubiPy_Exceptions: If there is an issue querying the smart contract (e.g., network error, invalid response, or timeout).
+        """
+        
+        request_Data_encoded = base64.b64encode(request_Data.encode('utf-8')).decode('utf-8')
+
+        payload = {
+            "contractIndex": contract_index,
+            "inputType": input_type,
+            "inputSize": input_size,
+            "requestData": request_Data_encoded
+        }
+        
+        try:
+            response = requests.post(f'{self.rpc_url}{QUERY_SC}', headers=HEADERS, json=payload, timeout=TIMEOUT)
+            response.raise_for_status()
+            data = base64.b64decode(response.json()['responseData'])
+            assetIssuanceFee = int.from_bytes(data[0:4], byteorder='little')
+            transferFee = int.from_bytes(data[4:8], byteorder='little')
+            tradeFee = int.from_bytes(data[8:12], byteorder='little')
+            return assetIssuanceFee, transferFee, tradeFee
+            #data = response.json()
+            #return data.get('responseData', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None
 
