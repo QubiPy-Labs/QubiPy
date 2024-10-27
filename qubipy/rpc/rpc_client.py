@@ -1,20 +1,21 @@
 """
-client.py
-This file contains the main QubiPy Client class which handles
+rpc_client.py
+This file contains the main QubiPy_RPC Client class which handles
 the interaction with the Qubic API, making HTTP requests and handling responses.
 """
 
 import requests
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 import json
-from exceptions import QubiPy_Exceptions
-from endpoints import *
-from config import *
+
+from qubipy.exceptions import *
+from qubipy.config import *
+from qubipy.endpoints_rpc import *
+from qubipy.utils import *
 import base64
 import json
-from utils import *
 
-class QubiPy:
+class QubiPy_RPC:
     def __init__(self, rpc_url: str = RPC_URL, timeout=TIMEOUT):
         self.rpc_url = rpc_url
         self.timeout = timeout
@@ -32,7 +33,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.rpc_url}{LATEST_TICK}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{LATEST_TICK}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data.get('latestTick', {})
@@ -79,7 +80,7 @@ class QubiPy:
         except requests.RequestException as e:
             raise QubiPy_Exceptions(f'Error broadcasting the transaction: {str(e)}') from None
 
-    def get_approved_transaction_for_tick(self, tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_approved_transaction_for_tick(self, tick: int | None = None) -> Dict[str, Any]:
         """
         Retrieves the approved transactions for a specific tick (block height) from the API.
 
@@ -92,7 +93,7 @@ class QubiPy:
         Raises:
             QubiPy_Exceptions: If the tick number is not provided or invalid.
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error or invalid response).
-    """
+        """
 
         if not tick:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
@@ -100,7 +101,7 @@ class QubiPy:
         endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick_number = tick)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=TIMEOUT)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=TIMEOUT)
             response.raise_for_status()
             data = response.json()
             return data.get('approvedTransactions', {})
@@ -108,7 +109,7 @@ class QubiPy:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the approved transactions from the API: {str(E)}") from None
     
-    def get_balance(self, wallet_id: str = None) -> Dict[str, Any]:
+    def get_balance(self, wallet_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the balance of a specific wallet from the API.
@@ -131,7 +132,7 @@ class QubiPy:
         endpoint = WALLET_BALANCE.format(id = wallet_id)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data.get('balance', {})
@@ -151,14 +152,14 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.rpc_url}{STATUS}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{STATUS}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data  
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the RPC status: {str(E)}") from None
     
-    def get_chain_hash(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_chain_hash(self, tick_number: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the chain hash (hexadecimal digest) for a specific tick number from the API.
@@ -180,14 +181,14 @@ class QubiPy:
         endpoint = CHAIN_HASH.format(tick = tick_number)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('hexDigest', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the chain hash: {str(E)}") from None
     
-    def get_quorum_tick_data(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_quorum_tick_data(self, tick_number: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves quorum data for a specific tick (block height) from the API.
@@ -209,14 +210,14 @@ class QubiPy:
         endpoint = QUORUM_TICK_DATA.format(tick = tick_number)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the quorum tick data: {str(E)}") from None
 
-    def get_store_hash(self, tick_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_store_hash(self, tick_number: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the store hash for a specific tick (block height) from the API.
@@ -238,14 +239,14 @@ class QubiPy:
         endpoint = STORE_HASH.format(tick = tick_number)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the store hash: {str(E)}") from None
     
-    def get_transaction(self, tx_id: Optional[str] = None) -> Dict[str, Any]:
+    def get_transaction(self, tx_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves transaction data for a specific transaction ID from the API.
@@ -267,14 +268,14 @@ class QubiPy:
         endpoint = TRANSACTION.format(tx_id = tx_id)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('transaction', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction data: {str(E)}") from None
     
-    def get_transaction_status(self, tx_id: Optional[str] = None) -> Dict[str, Any]:
+    def get_transaction_status(self, tx_id: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the status of a specific transaction using its transaction ID from the API.
@@ -296,14 +297,14 @@ class QubiPy:
         endpoint = TRANSACTION_STATUS.format(tx_id = tx_id)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('transactionStatus', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction status: {str(E)}") from None
     
-    def get_transfer_transactions_per_tick(self, identity: Optional[str] = None, start_tick: Optional[int] = None, end_tick: Optional[int] = None) -> Dict[str, Any]:
+    def get_transfer_transactions_per_tick(self, identity: str | None = None, start_tick: int | None = None, end_tick: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves transfer transactions for a specific identity within a specified range of ticks from the API.
@@ -339,7 +340,7 @@ class QubiPy:
         }
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', params=payload, timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, params=payload, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
@@ -361,14 +362,14 @@ class QubiPy:
         endpoint = HEALTH_CHECK
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the health check: {str(E)}") from None
     
-    def get_computors(self, epoch: Optional[int] = None) -> Dict[str, Any]:
+    def get_computors(self, epoch: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves computors associated with a specific epoch from the API.
@@ -391,24 +392,46 @@ class QubiPy:
         
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('computors', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
     
-    def query_smart_contract(self, contract_index: Optional[int] = None, input_type: Optional[int] = None, input_size: Optional[int] = None, request_Data: Optional[str] = None) -> Dict[str, Any]:
+    
+    def query_smart_contract(self, contract_index: int | None = None, input_type: int | None = None, input_size: int | None = None, request_Data: str | None = None) -> Dict[str, Any]:
+        """
+        Query a smart contract to the Qubic network
+        
+        Args:
+            contractIndex (Optional[int], optional): Contract Index to query
+            inputType (Optional[int], optional): Input type to query
+            inputSize (Optional[int], optional): The input size to query
+            requestData (Optional[str], optional): The request data to query the smart contract
+            
+        Returns:
+            Dict[str, Any]: The response from the API after querying the smart contract.
+            
+        Raises:
+            QubiPy_Exceptions: If the request data is invalid base64 encoded string.
+            QubiPy_Exceptions: If there is an issue querying the smart contract (e.g., network error, invalid response, or timeout).
+        """
+        
+        request_Data_encoded = base64.b64encode(request_Data.encode('utf-8')).decode('utf-8')
 
         payload = {
             "contractIndex": contract_index,
-            "inputType": 0,
+            "inputType": input_type,
             "inputSize": input_size,
-            "requestData": request_Data
+            "requestData": request_Data_encoded
         }
         
         try:
-            response = requests.post(f'{self.rpc_url}{QUERY_SC}', params=payload, timeout=TIMEOUT)
+            response = requests.post(f'{self.rpc_url}{QUERY_SC}', headers=HEADERS, json=payload, timeout=TIMEOUT)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('responseData', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None
 
@@ -426,14 +449,14 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.rpc_url}{TICK_INFO}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{TICK_INFO}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('tickInfo', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the tick info data: {str(E)}") from None
     
-    def get_issued_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+    def get_issued_assets(self, identity: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of assets issued by a specific identity from the API.
@@ -455,14 +478,14 @@ class QubiPy:
         endpoint = ISSUED_ASSETS.format(identity = identity)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('issuedAssets', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the list of assets issued by a specific identity: {str(E)}") from None
     
-    def get_owned_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+    def get_owned_assets(self, identity: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of assets owned by a specific identity from the API.
@@ -484,14 +507,14 @@ class QubiPy:
         endpoint = OWNED_ASSETS.format(identity = identity)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('ownedAssets', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the owned assets: {str(E)}") from None
     
-    def get_possessed_assets(self, identity: Optional[int] = None) -> Dict[str, Any]:
+    def get_possessed_assets(self, identity: str | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the list of assets possessed by a specific identity from the API.
@@ -513,7 +536,7 @@ class QubiPy:
         endpoint = POSSESSED_ASSETS.format(identity = identity)
 
         try:
-            response = requests.get(f'{self.rpc_url}{endpoint}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('possessedAssets', {})
@@ -534,7 +557,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.rpc_url}{BLOCK_HEIGHT}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{BLOCK_HEIGHT}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('blockHeight', {})
@@ -555,7 +578,7 @@ class QubiPy:
         """
 
         try:
-            response = requests.get(f'{self.rpc_url}{LATEST_STATS}', timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{LATEST_STATS}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('data', {})
@@ -563,7 +586,7 @@ class QubiPy:
             raise QubiPy_Exceptions(f"Failed to retrieve the latest stats from the RPC Server: {str(E)}") from None
     
 
-    def get_rich_list(self, page_1: Optional[int] = None, page_size: Optional[int] = None) -> Dict[str, Any]:
+    def get_rich_list(self, page_1: int | None = None, page_size: int | None = None) -> Dict[str, Any]:
 
         """
         Retrieves the rich list from the RPC server based on the provided page and page size.
@@ -591,10 +614,9 @@ class QubiPy:
         }
 
         try:
-            response = requests.get(f'{self.rpc_url}{RICH_LIST}', params=payload, timeout=self.timeout)
+            response = requests.get(f'{self.rpc_url}{RICH_LIST}', params=payload, headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return data.get('richList', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
-

@@ -25,3 +25,9 @@ class QubiPy_Exceptions(Exception):
     INVALID_PAGES = 'Page size must be between 1 and 100'
 
     INVALID_DATA_FORMAT = 'Invalid data format detected, please try again'
+
+    INVALID_BET_ID = 'Invalid bet ID, try again'
+
+    INVALID_BET_OPTIONS = 'Invalid bet options and bet ID'
+
+    INVALID_QX_ASSET_DATA = 'Invalid QX data, check your asset name, issuer id and offest'
