@@ -90,5 +90,25 @@ $ {
 }
 
 ```
+You can build a transaction and brodcast it :
 
+```python
+from qubipy.tx.utils import create_tx
+from qubipy.rpc.rpc_client import QubiPy_RPC
 
+seed = "........................."
+destination_id = "........................."
+amount = 1000
+
+rpc = QubiPy_RPC()
+tick = rpc.get_latest_tick()
+
+# Build transaction
+tx, signed_tx, signature, tx_hash = create_tx(seed, destination_id, amount, tick + 5)
+
+# Broadcast Transaction
+tx_broadcasted = rpc.broadcast_transaction(signed_tx)
+
+print(f"Transaction will be executed at tick: {tick+5}")
+print(f"Transaction data: {tx_broadcasted}")
+```

@@ -3,6 +3,6 @@
 * QX Support added
 * Qubic key util library implemented
 * Build transaction feature added
-* Query SC feature added
 * Broadcast transaction feature added
+* Query SC feature added
 * Code refactorized
