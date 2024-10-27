@@ -93,7 +93,7 @@ class QubiPy_RPC:
         Raises:
             QubiPy_Exceptions: If the tick number is not provided or invalid.
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error or invalid response).
-    """
+        """
 
         if not tick:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
@@ -443,13 +443,8 @@ class QubiPy_RPC:
         try:
             response = requests.post(f'{self.rpc_url}{QUERY_SC}', headers=HEADERS, json=payload, timeout=TIMEOUT)
             response.raise_for_status()
-            data = base64.b64decode(response.json()['responseData'])
-            assetIssuanceFee = int.from_bytes(data[0:4], byteorder='little')
-            transferFee = int.from_bytes(data[4:8], byteorder='little')
-            tradeFee = int.from_bytes(data[8:12], byteorder='little')
-            return assetIssuanceFee, transferFee, tradeFee
-            #data = response.json()
-            #return data.get('responseData', {})
+            data = response.json()
+            return data.get('responseData', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None
 
