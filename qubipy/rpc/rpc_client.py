@@ -399,19 +399,6 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
     
-    """def query_smart_contract(self, contract_index: Optional[int] = None, input_type: Optional[int] = None, input_size: Optional[int] = None, request_Data: Optional[str] = None) -> Dict[str, Any]:
-
-        payload = {
-            "contractIndex": contract_index,
-            "inputType": 0,
-            "inputSize": input_size,
-            "requestData": request_Data
-        }
-        
-        try:
-            response = requests.post(f'{self.rpc_url}{QUERY_SC}', headers=HEADERS, json=payload, timeout=TIMEOUT)
-        except requests.exceptions.RequestException as E:
-            raise QubiPy_Exceptions(f"Failed to query SC: {str(E)}") from None"""
     
     def query_smart_contract(self, contract_index: int | None = None, input_type: int | None = None, input_size: int | None = None, request_Data: str | None = None) -> Dict[str, Any]:
         """
