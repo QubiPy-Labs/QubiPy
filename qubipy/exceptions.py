@@ -10,7 +10,7 @@ class QubiPy_Exceptions(Exception):
 
     INVALID_TICK_ERROR = 'You need to enter a valid tick number'
 
-    TICK_NOT_COMPATIBLE = 'Your tick is incompatible, the tick must be higher than the current tick.'
+    TICK_NOT_COMPATIBLE = 'Your tick is incompatible, the tick must be higher than the current tick'
 
     INVALID_ADDRESS_ID = 'You need to enter a valid address ID.'
 
