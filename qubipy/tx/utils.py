@@ -38,8 +38,6 @@ def create_tx(seed: str, dest_id: str, amount: int, target_tick: int) -> tuple[b
     except ValueError:
         raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_DATA_VALUE) from None
 
-    #if target_tick < QubiPy_RPC.get_latest_tick()
-
     source_private_key = get_private_key_from_subseed(get_subseed_from_seed(bytes(seed, 'utf-8')))
     source_public_key = get_public_key_from_private_key(source_private_key)
     destination_public_key = get_public_key_from_identity(dest_id)
