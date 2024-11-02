@@ -20,6 +20,10 @@ def create_tx(seed: str, dest_id: str, amount: int, target_tick: int) -> tuple[b
 
     Returns:
         tuple: A tuple containing the first 80 bytes of the built data, the full built data, the signature, and the transaction hash.
+    
+    Raises:
+        QubiPy_Exceptions: If `target_tick` is not compatible (i.e., less than or equal to the latest tick from the network).
+        QubiPy_Exceptions: If the latest tick or target tick value is invalid and cannot be processed.
     """
 
     try:
