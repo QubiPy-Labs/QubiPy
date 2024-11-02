@@ -25,11 +25,11 @@ def create_tx(seed: str, dest_id: str, amount: int, target_tick: int) -> tuple[b
     try:
         tick = QubiPy_RPC().get_latest_tick()
 
-        target_tick_int = int(target_tick)
-        tick_int = int(tick)
+        formatted_tick = int(tick)
+        formatted_target_tick = int(target_tick)
 
-        if target_tick_int <= tick_int:
-            raise QubiPy_Exceptions(f"{QubiPy_Exceptions.TICK_NOT_COMPATIBLE}: {tick_int}")
+        if formatted_target_tick <= formatted_tick:
+            raise QubiPy_Exceptions(f"{QubiPy_Exceptions.TICK_NOT_COMPATIBLE}: {formatted_tick}")
         
     except ValueError:
         raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_DATA_VALUE) from None
