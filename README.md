@@ -44,7 +44,7 @@ $ {
 ```
 Let's request the entity info from the core :
 ```python
-CORE = core_client.QubiPy_core()
+CORE = core_client.QubiPy_Core()
 print(CORE.get_entity_info('PEKBRHZQKMGCQBTAHXHZRXQRLBACJIHAGWHMPIJTZBWIJVTIWQOVMGJDTPFO'))
 ```
 Reponse :
