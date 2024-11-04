@@ -10,6 +10,8 @@ class QubiPy_Exceptions(Exception):
 
     INVALID_TICK_ERROR = 'You need to enter a valid tick number'
 
+    TICK_NOT_COMPATIBLE = 'Your tick is incompatible, the tick must be higher than the current tick'
+
     INVALID_ADDRESS_ID = 'You need to enter a valid address ID.'
 
     INVALID_TX_ID = 'You need to enter a valid tx ID'
@@ -31,3 +33,5 @@ class QubiPy_Exceptions(Exception):
     INVALID_BET_OPTIONS = 'Invalid bet options and bet ID'
 
     INVALID_QX_ASSET_DATA = 'Invalid QX data, check your asset name, issuer id and offest'
+
+    INVALID_DATA_VALUE = 'Invalid data, enter an integer'
