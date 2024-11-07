@@ -98,7 +98,7 @@ class QubiPy_RPC:
         if not tick:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
     
-        endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick_number = tick)
+        endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick = tick)
 
         try:
             response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=TIMEOUT)
