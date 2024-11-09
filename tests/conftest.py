@@ -83,3 +83,99 @@ def mock_balance_response(sample_balance_data):
     response.raise_for_status.return_value = None
     response.json.return_value = {'balance': sample_balance_data}
     return response
+
+""" RPC STATUS """
+
+@pytest.fixture
+def sample_rpc_status_data():
+    return {
+        'lastProcessedTick': {
+            'tickNumber': 17088292,
+            'epoch': 134
+        },
+        'lastProcessedTicksPerEpoch': {
+            '133': 17032837,
+            '134': 17088292
+        },
+        'skippedTicks': [
+            {'startTick': 1, 'endTick': 13359999},
+            {'startTick': 17032838, 'endTick': 17032838}
+        ],
+        'processedTickIntervalsPerEpoch': [
+            {
+                'epoch': 133,
+                'intervals': [{'initialProcessedTick': 16910000, 'lastProcessedTick': 17032837}]
+            },
+            {
+                'epoch': 134,
+                'intervals': [{'initialProcessedTick': 17032839, 'lastProcessedTick': 17088292}]
+            }
+        ],
+        'emptyTicksPerEpoch': {
+            '133': 3528,
+            '134': 1302
+        }
+    }
+
+@pytest.fixture
+def mock_rpc_status_response(sample_rpc_status_data):
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.json.return_value = sample_rpc_status_data
+    return response
+
+""" HEALTH CHECK """
+
+@pytest.fixture
+def sample_health_check_data():
+    return {'status': True}
+
+@pytest.fixture
+def mock_health_check_response(sample_health_check_data):
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.json.return_value = sample_health_check_data
+    return response
+
+""" BLOCK HEIGHT """
+
+@pytest.fixture
+def sample_block_height_data():
+   return {
+       'tick': 17088516,
+       'duration': 3,
+       'epoch': 134,
+       'initialTick': 17032839
+   }
+
+@pytest.fixture
+def mock_block_height_response(sample_block_height_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'blockHeight': sample_block_height_data}
+   return response
+
+""" LATEST STATS """
+
+@pytest.fixture
+def sample_latest_stats_data():
+   return {
+       'timestamp': '1731159377',
+       'circulatingSupply': '120484458286056',
+       'activeAddresses': 475436,
+       'price': 1.428e-06,
+       'marketCap': '172051808',
+       'epoch': 134,
+       'currentTick': 17088558,
+       'ticksInCurrentEpoch': 55719,
+       'emptyTicksInCurrentEpoch': 1308,
+       'epochTickQuality': 97.652504,
+       'burnedQus': '13515541713944'
+   }
+
+@pytest.fixture
+def mock_latest_stats_response(sample_latest_stats_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'data': sample_latest_stats_data}
+   return response
