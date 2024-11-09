@@ -179,3 +179,121 @@ def mock_latest_stats_response(sample_latest_stats_data):
    response.raise_for_status.return_value = None
    response.json.return_value = {'data': sample_latest_stats_data}
    return response
+
+""" ISSUED ASSETS """
+
+@pytest.fixture
+def sample_identity():
+   return "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB"
+
+@pytest.fixture
+def sample_issued_assets_data():
+   return [
+       {
+           'data': {
+               'issuerIdentity': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+               'type': 1,
+               'name': 'RANDOM',
+               'numberOfDecimalPlaces': 0,
+               'unitOfMeasurement': [0, 0, 0, 0, 0, 0, 0]
+           },
+           'info': {
+               'tick': 17089203,
+               'universeIndex': 0
+           }
+       },
+       {
+           'data': {
+               'issuerIdentity': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+               'type': 1,
+               'name': 'QX',
+               'numberOfDecimalPlaces': 0,
+               'unitOfMeasurement': [0, 0, 0, 0, 0, 0, 0]
+           },
+           'info': {
+               'tick': 17089203,
+               'universeIndex': 1
+           }
+       }
+   ]
+
+@pytest.fixture
+def mock_issued_assets_response(sample_issued_assets_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'issuedAssets': sample_issued_assets_data}
+   return response
+
+""" OWNED ASSETS """
+
+@pytest.fixture
+def sample_owned_assets_data():
+   return [{
+       'data': {
+           'ownerIdentity': 'CFBMEMZOIDEXQAUXYYSZIURADQLAPWPMNJXQSNVQZAHYVOPYUKKJBJUCTVJL',
+           'type': 2,
+           'padding': 0,
+           'managingContractIndex': 1,
+           'issuanceIndex': 12267528,
+           'numberOfUnits': '130510491365',
+           'issuedAsset': {
+               'issuerIdentity': 'CFBMEMZOIDEXQAUXYYSZIURADQLAPWPMNJXQSNVQZAHYVOPYUKKJBJUCTVJL',
+               'type': 1,
+               'name': 'CFB',
+               'numberOfDecimalPlaces': 0,
+               'unitOfMeasurement': [0, -48, 0, -48, 35, 24, 21]
+           }
+       },
+       'info': {
+           'tick': 17089329,
+           'universeIndex': 12267529
+       }
+   }]
+
+@pytest.fixture
+def mock_owned_assets_response(sample_owned_assets_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'ownedAssets': sample_owned_assets_data}
+   return response
+
+""" POSSESSED ASSETS """
+
+@pytest.fixture
+def sample_possessed_assets_data():
+   return [{
+       'data': {
+           'possessorIdentity': 'CFBMEMZOIDEXQAUXYYSZIURADQLAPWPMNJXQSNVQZAHYVOPYUKKJBJUCTVJL',
+           'type': 3,
+           'padding': 0,
+           'managingContractIndex': 1,
+           'issuanceIndex': 12267529,
+           'numberOfUnits': '130510491365',
+           'ownedAsset': {
+               'ownerIdentity': 'CFBMEMZOIDEXQAUXYYSZIURADQLAPWPMNJXQSNVQZAHYVOPYUKKJBJUCTVJL',
+               'type': 3,
+               'padding': 0,
+               'managingContractIndex': 1,
+               'issuanceIndex': 12267529,
+               'numberOfUnits': '130510491365',
+               'issuedAsset': {
+                   'issuerIdentity': 'CFBMEMZOIDEXQAUXYYSZIURADQLAPWPMNJXQSNVQZAHYVOPYUKKJBJUCTVJL',
+                   'type': 1,
+                   'name': 'CFB',
+                   'numberOfDecimalPlaces': 0,
+                   'unitOfMeasurement': [0, -48, 0, -48, 35, 24, 21]
+               }
+           }
+       },
+       'info': {
+           'tick': 17089367,
+           'universeIndex': 12267530
+       }
+   }]
+
+@pytest.fixture
+def mock_possessed_assets_response(sample_possessed_assets_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'possessedAssets': sample_possessed_assets_data}
+   return response
