@@ -367,3 +367,82 @@ def mock_store_hash_response(sample_store_hash_data):
    response.raise_for_status.return_value = None
    response.json.return_value = sample_store_hash_data
    return response
+
+""" RICH LIST """
+
+@pytest.fixture
+def sample_page():
+   return 1
+
+@pytest.fixture
+def sample_page_size():
+   return 20
+
+@pytest.fixture
+def sample_rich_list_data():
+   return {
+       'entities': [
+           {
+               'identity': 'BYBYFUMBVLPUCANXEXTSKVMGFCJBMTLPPOFVPNSATABMWDGTMFXPLZLBCXJL',
+               'balance': '10988257022786'
+           },
+           {
+               'identity': 'VUEYKUCYYHXKDGOSCWAIEECECDBCXVUSUAJRVXUQVAQPGIOABLGGLXDAXTNK',
+               'balance': '5638925835721'
+           }
+       ]
+   }
+
+@pytest.fixture
+def mock_rich_list_response(sample_rich_list_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'richList': sample_rich_list_data}
+   return response
+
+""" COMPUTORS """
+
+@pytest.fixture
+def sample_epoch():
+    return 134
+
+@pytest.fixture
+def sample_computors_data():
+    return {
+        'epoch': 134,
+        'identities': [
+            'KSOHJQTNNFLLXBXVWQAXZKZVGVQDJCMCRUQIIBSVCFZLGJGNOBQZNAWCNLON',
+            'IWLLOBAWRLMFQDGWGXZJYGYCYXLATRLOJYPWQCHAFESMBJXCXJFGBWADCMQL',
+            'CIBJIZDJQFANUEJCDYLCTLSEFWABSOMVMEMJKYIRNGEWEIGOIKNXBAZBBUBB'
+        ],
+        'signatureHex': '22b48edf2d0dcc0deaff66ee0b52125dde3217797cfefe8198811137ffb4699c455f48ff818bb0790a6584a11fe6446e72f5cddb96fb105e9c0c2ee1d3500200'
+    }
+
+@pytest.fixture
+def mock_computors_response(sample_computors_data):
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.json.return_value = {'computors': sample_computors_data}
+    return response
+
+""" SMART CONTRACT """
+
+@pytest.fixture
+def sample_smart_contract_data():
+   return "AMqaO0BCDwBAS0wA"
+
+@pytest.fixture
+def sample_contract_params():
+   return {
+       'contract_index': '1',
+       'input_type': '1',
+       'input_size': '0',
+       'request_data': ''
+   }
+
+@pytest.fixture
+def mock_smart_contract_response(sample_smart_contract_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'responseData': sample_smart_contract_data}
+   return response
