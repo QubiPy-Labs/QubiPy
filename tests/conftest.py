@@ -297,3 +297,73 @@ def mock_possessed_assets_response(sample_possessed_assets_data):
    response.raise_for_status.return_value = None
    response.json.return_value = {'possessedAssets': sample_possessed_assets_data}
    return response
+
+""" CHAIN HASH """
+
+@pytest.fixture
+def sample_chain_hash_data():
+   return "2a8d4845f9de63318a88ab2f2d723ba1f656f3e90214843608bc7e86949704ee"
+
+@pytest.fixture
+def mock_chain_hash_response(sample_chain_hash_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'hexDigest': sample_chain_hash_data}
+   return response
+
+""" QUORUM TICK DATA """
+
+@pytest.fixture
+def sample_quorum_tick_data():
+    return {
+        'quorumTickData': {
+            'quorumTickStructure': {
+                'epoch': 134,
+                'tickNumber': 17109368,
+                'timestamp': '1731256305000',
+                'prevResourceTestingDigestHex': '34db5c0d34e83778',
+                'prevSpectrumDigestHex': 'eaaa8e9796c77c4fbcbb053085f1b3fb563a552ceead4250d43fa30a6c1dba9b',
+                'prevUniverseDigestHex': '05b9f286367a3c5cc570c7094e29a27f79222d5c8f33fccd3a04fac830baee63',
+                'prevComputerDigestHex': '31d6125e3abcc3f4346219f505ae0ff68c7ab57088cf1d238875e901d49524f7',
+                'txDigestHex': 'a7fcd26e475a6b89800d190656dd8819585a3205f9b9c528b269a86ac3bc60b6'
+            },
+            'quorumDiffPerComputor': {
+                '7': {
+                    'saltedResourceTestingDigestHex': '5f80d38310005ce1',
+                    'saltedSpectrumDigestHex': 'f3b0d39abfa3cf6d2e7741fd3b3468d2d76b4482dcadae130c06859b2b9ece48',
+                    'saltedUniverseDigestHex': 'd00538954de165056684211acf6cac7b344d73e67b9a159e140c4a8167fdb553',
+                    'saltedComputerDigestHex': '30f557ae9288cc7907191071e90815617e5e8648bbebcb749ac4fa16083af2b2',
+                    'expectedNextTickTxDigestHex': 'ba24336be17ea9e67f348cc89ba3a86785b9eece09a92fddadcd8ec007ccf931',
+                    'signatureHex': 'f706fbbb4a12630145f8ddfbb025783e4e5b23d4e3b06487e9f5bc2b600837371c2c544c4a4ea6704be454e7819acc7d2005c81e91baf9d73cbda9aff49f0700'
+                },
+                '8': {
+                    'saltedResourceTestingDigestHex': 'b6c4cf705c270e39',
+                    'saltedSpectrumDigestHex': 'e76ed9421b83d70963afa888957d6d368d8b14d2e31028d585f986ad0234507f',
+                    'saltedUniverseDigestHex': 'c6a80db95531fb2293771b4b52e79a4533725e19652d99d04d825dcc02b445e5',
+                    'saltedComputerDigestHex': '1f43d25b4895625f84d724d2ec983796fab07b1ab809c9575e3ecba5e9fec4a2',
+                    'expectedNextTickTxDigestHex': 'ba24336be17ea9e67f348cc89ba3a86785b9eece09a92fddadcd8ec007ccf931',
+                    'signatureHex': '9755aa77f9f0ee1412531785faf3d91b00d2067aa8bd58214c1fff0257a33c7fab582c41f5e499a76bfee08449f366117e25ac1ca6f5c4d48b6343847d8c1c00'
+                }
+            }
+        }
+    }
+
+@pytest.fixture
+def mock_quorum_tick_data_response(sample_quorum_tick_data):
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.json.return_value = sample_quorum_tick_data
+    return response
+
+""" CHAIN HASH """
+
+@pytest.fixture
+def sample_store_hash_data():
+   return {'hexDigest': 'e42bc16369f52cb4a2b497f9b69a7bedc75ad7f9b2ad8a6f9c1e1669859a1f14'}
+
+@pytest.fixture
+def mock_store_hash_response(sample_store_hash_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_store_hash_data
+   return response
