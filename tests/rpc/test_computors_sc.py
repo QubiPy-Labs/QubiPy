@@ -184,7 +184,7 @@ def test_query_smart_contract_request_exception(rpc_client, sample_contract_para
         
         assert "Failed to query SC: Network error" in str(exc_info.value)
 
-def test_query_smart_contract_timeout(mock_timeout_response, rpc_client, sample_contract_params):
+def test_query_smart_contract_timeout(rpc_client, sample_contract_params):
     """
     Test the query_smart_contract method for handling a timeout exception.
     
