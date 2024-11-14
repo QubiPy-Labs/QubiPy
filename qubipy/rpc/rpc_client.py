@@ -53,6 +53,9 @@ class QubiPy_RPC:
         Raises:
             QubiPy_Exceptions: If there is an issue broadcasting the transaction.
         """
+
+        check_bytes(tx)
+
         tx_encoded = base64.b64encode(tx).decode('utf-8')
         payload = json.dumps({
             "encodedTransaction": tx_encoded
@@ -303,6 +306,35 @@ class QubiPy_RPC:
             return data.get('transactionStatus', {})
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction status: {str(E)}") from None
+    
+    def get_tick_data(self, tick: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the data associated with a specific tick number from the API.
+
+        Args:
+            tick (Optional[int]): The tick number for which to retrieve the data. If not provided, an exception is raised.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the data associated with the specified tick number. If no data is found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the tick number is not provided or is invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
+        if not tick:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
+        
+        endpoint = TICK_DATA.format(tick = tick)
+
+        try:
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('tickData', {})  
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the tick data: {str(E)}") from None
     
     def get_transfer_transactions_per_tick(self, identity: str | None = None, start_tick: int | None = None, end_tick: int | None = None) -> Dict[str, Any]:
 
