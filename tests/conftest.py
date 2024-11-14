@@ -4,6 +4,7 @@ from unittest.mock import Mock
 from qubipy.rpc.rpc_client import QubiPy_RPC
 from qubipy.endpoints_rpc import *
 import requests
+import base64
 
 HEADERS = {'Content-Type': 'application/json', 'accept': 'application/json'}
 RPC_URL = "https://rpc.qubic.org/v1"
@@ -446,3 +447,142 @@ def mock_smart_contract_response(sample_smart_contract_data):
    response.raise_for_status.return_value = None
    response.json.return_value = {'responseData': sample_smart_contract_data}
    return response
+
+""" TRANSACTION """
+
+@pytest.fixture
+def sample_tx_id():
+   return "bmtmtgbuxzriledlwttgaatvgwdfqxhgjoltvsjvrfcphthdezdaidcaemih"
+
+@pytest.fixture
+def sample_transaction_data():
+   return {
+       'sourceId': 'PCQRHZBMMMTCDAROMBXXLDSPAVJCGKUYMZILJCUHRDGSACXMUAGSEPVAXUCG',
+       'destId': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+       'amount': '1000000',
+       'tickNumber': 17110120,
+       'inputType': 2,
+       'inputSize': 64,
+       'inputHex': '91b48b82e9a59a87fe84ebabb0e7957e9333f7d38f831c19a498ffafe42bab66716c692d6370756c86023ed19299a315a71ccbc2619f0a0afad27a7edede1358',
+       'signatureHex': 'b95ad759a021f73e4387c833386d29653870013383ea86e668b96e19f2aee64d17ce0fbad2e1952314b3e6df7be0cfb68fdc099f48b7175751a4d40e61f90800',
+       'txId': 'bmtmtgbuxzriledlwttgaatvgwdfqxhgjoltvsjvrfcphthdezdaidcaemih'
+   }
+
+@pytest.fixture
+def mock_transaction_response(sample_transaction_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'transaction': sample_transaction_data}
+   return response
+
+""" TX STATUS """
+
+@pytest.fixture
+def sample_transaction_status_data():
+   return {
+       'txId': 'bmtmtgbuxzriledlwttgaatvgwdfqxhgjoltvsjvrfcphthdezdaidcaemih',
+       'moneyFlew': True
+   }
+
+@pytest.fixture
+def mock_transaction_status_response(sample_transaction_status_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'transactionStatus': sample_transaction_status_data}
+   return response
+
+""" TRANSFER TX PER TICK """
+
+@pytest.fixture
+def sample_transfer_params():
+   return {
+       'identity': 'PCQRHZBMMMTCDAROMBXXLDSPAVJCGKUYMZILJCUHRDGSACXMUAGSEPVAXUCG',
+       'start_tick': 17110120,
+       'end_tick': 17110120
+   }
+
+@pytest.fixture
+def sample_transfer_transactions_data():
+   return {
+       'transferTransactionsPerTick': [{
+           'tickNumber': 17110120,
+           'identity': 'PCQRHZBMMMTCDAROMBXXLDSPAVJCGKUYMZILJCUHRDGSACXMUAGSEPVAXUCG',
+           'transactions': [{
+               'sourceId': 'PCQRHZBMMMTCDAROMBXXLDSPAVJCGKUYMZILJCUHRDGSACXMUAGSEPVAXUCG',
+               'destId': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+               'amount': '1000000',
+               'tickNumber': 17110120,
+               'inputType': 2,
+               'inputSize': 64,
+               'inputHex': '91b48b82e9a59a87fe84ebabb0e7957e9333f7d38f831c19a498ffafe42bab66716c692d6370756c86023ed19299a315a71ccbc2619f0a0afad27a7edede1358',
+               'signatureHex': 'b95ad759a021f73e4387c833386d29653870013383ea86e668b96e19f2aee64d17ce0fbad2e1952314b3e6df7be0cfb68fdc099f48b7175751a4d40e61f90800',
+               'txId': 'bmtmtgbuxzriledlwttgaatvgwdfqxhgjoltvsjvrfcphthdezdaidcaemih'
+           }]
+       }]
+   }
+
+@pytest.fixture
+def mock_transfer_transactions_response(sample_transfer_transactions_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_transfer_transactions_data
+   return response
+
+""" BROADCAST TX """
+
+
+@pytest.fixture
+def sample_tx_bytes():
+    return b"AQU+cSLitBL4WVnmI3C5DGHbmmyuBZHmfbLI+dkE2aj758XuwfEcBOVVKpnPEttRegeSlP1eNX4a5hSXt56VHOgDAAAAAAAAOR8FAQAAAACEKB6pxq142nVDVkTqMxsde1vExu+iWv/hEGvlSgNAStJ9KTJqwwoQoAMdl+vjN8w9aPYGLgLvl+QC4BZGRykA"
+
+@pytest.fixture
+def sample_broadcast_response():
+    return bytearray(b'\x01\x05>q"\xe2\xb4\x12\xf8YY\xe6#p\xb9\x0ca\xdb\x9al\xae\x05\x91\xe6}\xb2\xc8\xf9\xd9\x04\xd9\xa8\xfb\xe7\xc5\xee\xc1\xf1\x1c\x04\xe5U*\x99\xcf\x12\xdbQz\x07\x92\x94\xfd^5~\x1a\xe6\x14\x97\xb7\x9e\x95\x1c\x00\x00\x00\x00\x00\x00\x00\x00\x9f!\x05\x01\x00\x00\x00\x00\x05\x82\xd5\x11\x98\x0eRp\xbb\x02\x97\xf0B\xf8\xde\x1e\xaf\x9dU\xb2\xcbQ\xc6\x89\xc37L\xf6!\xb6j\xe3\x86\x84\xf6\xa1/\xac\xadV\xe8\xd6\xfaA\x07\xc3\xc8\x1c\xbc\x0e\xfc\xcd\xf3\x88\xa2\xde8\x8at(\xcd\xc0\x08\x00')
+
+@pytest.fixture
+def mock_broadcast_response(sample_broadcast_response):
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.json.return_value = sample_broadcast_response
+    return response
+
+""" TICK INFO """
+
+@pytest.fixture
+def sample_tick_info_data():
+   return {
+       'tick': 17184008,
+       'duration': 2,
+       'epoch': 135,
+       'initialTick': 17160956
+   }
+
+@pytest.fixture
+def mock_tick_info_response(sample_tick_info_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = {'tickInfo': sample_tick_info_data}
+   return response
+
+""" TICK DATA """
+
+@pytest.fixture
+def sample_tick_data():
+    return {
+        'computorIndex': 345,
+        'epoch': 135,
+        'tickNumber': 17184941,
+        'timestamp': '1731615775000',
+        'varStruct': '',
+        'timeLock': 'juE3j+95kHUoVk7gFLqIvm+GftVEbFhtr4yu7cYTFHY=',
+        'transactionIds': ['hqomnbbvsdgukctjbyyqxdvcieecrfjpbncnzgbavfxswmltttotjckdprgn'],
+        'contractFees': [],
+        'signatureHex': '918b4c3a5014e8abc95a7a9c4670e90638272b1e81435c01d21bc80f27156a14581f5664fcc00f87c245c93fb8e2589dd9eb16e83ac36d677e2e1aeae33c1400'
+    }
+
+@pytest.fixture
+def mock_tick_data_response(sample_tick_data):
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.json.return_value = {'tickData': sample_tick_data}  # Envolvemos en tickData
+    return response
