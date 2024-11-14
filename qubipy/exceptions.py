@@ -37,3 +37,6 @@ class QubiPy_Exceptions(Exception):
     INVALID_DATA_VALUE = 'Invalid data, enter an integer'
 
     INVALID_SC_DATA = 'Make sure you have entered a valid contract index, a valid input type, a valid input size and a valid request data'
+
+    INVALID_TX_BYTES = "A bytes-like object is required for broadcasting a transaction"
+
