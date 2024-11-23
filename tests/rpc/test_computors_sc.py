@@ -1,14 +1,14 @@
 import pytest
-from unittest.mock import patch, Mock
-from qubipy.rpc.rpc_client import QubiPy_RPC
+from unittest.mock import patch
 from qubipy.exceptions import QubiPy_Exceptions
-from qubipy.endpoints_rpc import *
+from qubipy.endpoints_rpc import COMPUTORS, QUERY_SC
 import requests
 import base64
 from ..conftest import *
 
 COMPUTORS_FULL_URL = f"{RPC_URL}{COMPUTORS}"
 QUERY_SC_FULL_URL = f"{RPC_URL}{QUERY_SC}"
+
 
 def test_get_computors_success(mock_computors_response, sample_computors_data, rpc_client, sample_epoch):
     """
@@ -28,6 +28,7 @@ def test_get_computors_success(mock_computors_response, sample_computors_data, r
             headers=HEADERS,
             timeout=rpc_client.timeout
         )
+    
 
 def test_get_computors_no_epoch(rpc_client):
     """
