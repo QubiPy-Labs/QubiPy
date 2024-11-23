@@ -552,7 +552,7 @@ def mock_broadcast_response(sample_broadcast_response):
 """ TICK INFO """
 
 @pytest.fixture
-def sample_tick_info_data():
+def sample_rpc_tick_info_data():
    return {
        'tick': 17184008,
        'duration': 2,
@@ -561,10 +561,10 @@ def sample_tick_info_data():
    }
 
 @pytest.fixture
-def mock_tick_info_response(sample_tick_info_data):
+def mock_tick_rpc_response(sample_rpc_tick_info_data):
    response = Mock()
    response.raise_for_status.return_value = None
-   response.json.return_value = {'tickInfo': sample_tick_info_data}
+   response.json.return_value = {'tickInfo': sample_rpc_tick_info_data}
    return response
 
 """ TICK DATA """
@@ -751,3 +751,228 @@ def mock_active_bets_by_creator_response(sample_active_bets_by_creator_data):
    response.raise_for_status.return_value = None
    response.json.return_value = sample_active_bets_by_creator_data
    return response
+
+""" BASIC INFO """
+
+@pytest.fixture
+def sample_basic_info_data():
+   return {
+       'fees': {
+           'slotPerDay': '10',
+           'gameOperator': '50',
+           'shareholder': '1000',
+           'burn': '200'
+       },
+       'minimumBetSlotAmount': '10000',
+       'issuedBets': '67',
+       'moneyFlowData': {
+           'total': '8819892431',
+           'issueBet': '756234200',
+           'joinBet': '7694514502',
+           'finalizeBet': '369143729'
+       },
+       'economicsData': {
+           'earnedAmountShareholder': '1125377929',
+           'paidAmountShareholder': '0',
+           'earnedAmountBetWinner': '5475201717',
+           'distributedAmount': '5475201717',
+           'burnedAmount': '90728793'
+       },
+       'gameOperatorId': 'KSWMTEIAYCLGXCDEXWZWFXUUGSGCTTZUIINDTYCNZABBJHVCBYEPFWXFIPBF'
+   }
+
+@pytest.fixture
+def mock_basic_info_response(sample_basic_info_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_basic_info_data
+   return response
+
+""" BET INFO """
+
+@pytest.fixture
+def sample_bet_id():
+   return 45
+
+@pytest.fixture
+def sample_bet_info_data():
+   return {
+       'id': 45,
+       'creatorId': 'OWUVKWHTVEKHDEAIFKTELAROUGCDRONSPPWIYANAGAKLOXCFGYXYLMQDUREL',
+       'description': 'Qubic Price by end of November\x00\x00',
+       'options': [
+           {
+               'description': 'Above $3000/billion on CMC\x00\x00\x00\x00\x00\x00',
+               'state': 12
+           },
+           {
+               'description': 'On or below $3000/billion on CMC',
+               'state': 26
+           }
+       ],
+       'oracles': [
+           {
+               'id': 'JDHSYZJHTVYLNCLNFFOTOVVVDBJBZTCZNEOYXVFXSGGKKTCNOSLXYRBBFOTA',
+               'feePercentage': 2
+           }
+       ],
+       'votes': [],
+       'minimumBetAmount': '10000000',
+       'maximumBetSlotPerOption': 250,
+       'openTime': '2024-11-03T19:57:40Z',
+       'closeTime': '2024-11-30T23:59:00Z',
+       'endTime': '2024-12-01T12:00:00Z'
+   }
+
+@pytest.fixture
+def mock_bet_info_response(sample_bet_info_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_bet_info_data
+   return response
+
+""" BETTORS BY BET OPTION """
+
+pass
+
+""" QX """
+
+@pytest.fixture
+def sample_qx_params():
+   return {
+       'asset_name': 'QX',
+       'issuer_id': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+       'offset': '1'
+   }
+
+@pytest.fixture
+def sample_qx_ask_orders_data():
+   return {
+       'orders': [
+           {
+               'entityId': 'RANDAIIPOIYBMGSSNBSCSHPQEWPARIZYWHRWGMDVLGEWNBZNHIGECFKCGQDO',
+               'price': '28500000000',
+               'numberOfShares': '1'
+           },
+           {
+               'entityId': 'XOHNXGRPAFEGTAOYFVHYCFKQNXSBNWAPNVPGDJZVHBFOSCVZOEDEUVODIGUG',
+               'price': '30000000000',
+               'numberOfShares': '1'
+           },
+           {
+               'entityId': 'VMRDVJVNIWWFQGBSOZRFKVUZKKSDZAZBWBPVELWWXAOIASIQZVPYAQLBJHLD',
+               'price': '32123456789',
+               'numberOfShares': '1'
+           },
+           {
+               'entityId': 'DWUHAKJGWERZYARTKQAKQBWJGCOCPYGDLPHJAUAQNGUXRMLQKEJALAIFAFBE',
+               'price': '34990000000',
+               'numberOfShares': '1'
+           }
+       ]
+   }
+
+@pytest.fixture
+def mock_qx_ask_orders_response(sample_qx_ask_orders_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_qx_ask_orders_data
+   return response
+
+""" BID ORDERS """
+
+@pytest.fixture
+def sample_qx_bid_orders_data():
+   return {
+       'orders': [
+           {
+               'entityId': 'SSOYXBGWWOCLGCXYTTUEHFRKRCHBBTGNZFVYGWIPWCFYAYFQADNJYNAEWRAO',
+               'price': '1000000001',
+               'numberOfShares': '1'
+           },
+           {
+               'entityId': 'PEKBRHZQKMGCQBTAHXHZRXQRLBACJIHAGWHMPIJTZBWIJVTIWQOVMGJDTPFO',
+               'price': '100000001',
+               'numberOfShares': '10'
+           }
+       ]
+   }
+
+@pytest.fixture
+def mock_qx_bid_orders_response(sample_qx_bid_orders_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_qx_bid_orders_data
+   return response
+
+""" ASK ORDERS """
+
+@pytest.fixture
+def sample_entity_id():
+   return "UBGIZFTLNCRKAFJBIUUYWTOMEFEDVPTZZZBKNSZODERUXBJPWQZSPGYAMCYH"
+
+@pytest.fixture
+def sample_entity_ask_orders_data():
+   return {
+       'orders': [
+           {
+               'issuerId': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+               'assetName': 'MLM',
+               'price': '1390000000',
+               'numberOfShares': '1'
+           }
+       ]
+   }
+
+@pytest.fixture
+def mock_entity_ask_orders_response(sample_entity_ask_orders_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_entity_ask_orders_data
+   return response
+
+""" BID ORDERS """
+
+@pytest.fixture
+def sample_entity_bid_orders_data():
+   return {
+       'orders': [
+           {
+               'issuerId': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+               'assetName': 'QTRY',
+               'price': '475000000',
+               'numberOfShares': '1'
+           },
+           {
+               'issuerId': 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFXIB',
+               'assetName': 'RANDOM',
+               'price': '170000000',
+               'numberOfShares': '1'
+           }
+       ]
+   }
+
+@pytest.fixture
+def mock_entity_bid_orders_response(sample_entity_bid_orders_data):
+   response = Mock()
+   response.raise_for_status.return_value = None
+   response.json.return_value = sample_entity_bid_orders_data
+   return response
+
+
+""" QX FEES """
+
+@pytest.fixture
+def sample_qx_fees_data():
+  return {
+      'assetIssuanceFee': 1000000000,
+      'transferFee': 1000000,
+      'tradeFee': 5000000
+  }
+
+@pytest.fixture
+def mock_qx_fees_response(sample_qx_fees_data):
+  response = Mock()
+  response.raise_for_status.return_value = None
+  response.json.return_value = sample_qx_fees_data
+  return response

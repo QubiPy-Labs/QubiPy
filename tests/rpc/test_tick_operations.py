@@ -1,6 +1,5 @@
 import pytest
-from unittest.mock import patch, Mock
-from qubipy.rpc.rpc_client import QubiPy_RPC
+from unittest.mock import patch
 from qubipy.exceptions import QubiPy_Exceptions
 from qubipy.endpoints_rpc import *
 import requests
@@ -10,19 +9,19 @@ from ..conftest import *
 TICK_INFO_FULL_URL = f"{RPC_URL}{TICK_INFO}"
 TICK_DATA_FULL_URL = f"{RPC_URL}{TICK_DATA}"
 
-def test_get_tick_info_success(mock_tick_info_response, sample_tick_info_data, rpc_client):
+def test_get_tick_info_success(mock_tick_rpc_response, sample_rpc_tick_info_data, rpc_client):
     """
     Test the get_tick_info method for a successful response.
     
     Verifies that the function returns the expected tick information when the API
     responds successfully.
     """
-    with patch('requests.get', return_value=mock_tick_info_response) as mock_get:
+    with patch('requests.get', return_value=mock_tick_rpc_response) as mock_get:
         result = rpc_client.get_tick_info()
         
-        assert result == sample_tick_info_data
-        mock_tick_info_response.raise_for_status.assert_called_once()
-        mock_tick_info_response.json.assert_called_once()
+        assert result == sample_rpc_tick_info_data
+        mock_tick_rpc_response.raise_for_status.assert_called_once()
+        mock_tick_rpc_response.json.assert_called_once()
         mock_get.assert_called_once_with(
             TICK_INFO_FULL_URL,
             headers=HEADERS,

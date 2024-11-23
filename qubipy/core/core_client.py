@@ -33,7 +33,7 @@ class QubiPy_Core:
         """
 
         try:
-            response = requests.get(f'{self.core_url}{COMPUTORS}', timeout=self.timeout)
+            response = requests.get(f'{self.core_url}{CORE_COMPUTORS}', timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data
@@ -98,7 +98,7 @@ class QubiPy_Core:
             }
         
         try:
-            response = requests.post(f'{self.core_url}{TICK_DATA}', headers=HEADERS, json=payload, timeout=self.timeout)
+            response = requests.post(f'{self.core_url}{CORE_TICK_DATA}', headers=HEADERS, json=payload, timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data
@@ -119,7 +119,7 @@ class QubiPy_Core:
         """
 
         try:
-            response = requests.get(f'{self.core_url}{TICK_INFO}', headers=HEADERS, timeout=self.timeout)
+            response = requests.get(f'{self.core_url}{CORE_TICK_INFO}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data

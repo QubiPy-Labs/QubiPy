@@ -1,13 +1,12 @@
 import pytest
-from unittest.mock import patch, Mock
-from qubipy.core.core_client import QubiPy_Core
+from unittest.mock import patch
 from qubipy.exceptions import QubiPy_Exceptions
 from qubipy.endpoints_core import *
 import requests
 from ..conftest import *
 
-TICK_DATA_FULL_URL = f"{CORE_URL}{TICK_DATA}"
-TICK_INFO_FULL_URL = f"{CORE_URL}{TICK_INFO}"
+TICK_DATA_FULL_URL = f"{CORE_URL}{CORE_TICK_DATA}"
+TICK_INFO_FULL_URL = f"{CORE_URL}{CORE_TICK_INFO}"
 TICK_QUORUM_VOTE_FULL_URL = f"{CORE_URL}{TICK_QUORUM_VOTE}"
 TICK_TRANSACTIONS_FULL_URL = f"{CORE_URL}{TICK_TRANSACTIONS}"
 
