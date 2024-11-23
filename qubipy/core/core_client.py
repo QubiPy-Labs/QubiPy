@@ -301,7 +301,7 @@ class QubiPy_Core:
             data = response.json()
             return data
         except requests.RequestException as E:
-            raise QubiPy_Exceptions(f'Error when getting computors: {str(E)}') from None
+            raise QubiPy_Exceptions(f'Error when getting basic info: {str(E)}') from None
     
     def get_bet_info(self, bet_id: int | None = None) -> Dict[str, Any]:
 
@@ -449,7 +449,7 @@ class QubiPy_Core:
             data = response.json()
             return data
         except requests.RequestException as E:
-            raise QubiPy_Exceptions(f'Error when getting QX ask orders: {str(E)}') from None
+            raise QubiPy_Exceptions(f'Error when getting QX bid orders: {str(E)}') from None
     
     def get_qx_entity_ask_orders(self, entity_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
