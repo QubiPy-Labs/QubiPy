@@ -1,6 +1,5 @@
 import pytest
-from unittest.mock import patch, Mock
-from qubipy.core.core_client import QubiPy_Core
+from unittest.mock import patch
 from qubipy.exceptions import QubiPy_Exceptions
 from qubipy.endpoints_core import *
 import requests

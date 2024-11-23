@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import patch, Mock
-from qubipy.rpc.rpc_client import QubiPy_RPC
 from qubipy.exceptions import QubiPy_Exceptions
 from qubipy.endpoints_rpc import *
 import requests
