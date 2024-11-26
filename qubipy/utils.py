@@ -42,3 +42,18 @@ def check_ticks_format(start_tick: int, end_tick: int):
     
     if start_tick <= 0 or end_tick <= 0:
         raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_START_TICK_AND_END_TICK)
+    
+def check_bytes(tx: bytes):
+
+    """
+    Validates that the input transaction data is in bytes format.
+
+    Args:
+        tx (bytes): The transaction data to validate. Must be of type bytes or bytearray.
+
+    Raises:
+        QubiPy_Exceptions: If the transaction data is not in bytes or bytearray format.
+    """
+    
+    if not isinstance(tx, (bytes, bytearray)):
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TX_BYTES)

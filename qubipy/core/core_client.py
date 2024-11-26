@@ -1,6 +1,6 @@
 """
-rpc_client.py
-This file contains the main QubiPy_RPC Client class which handles
+core_client.py
+This file contains the main QubiPy_Core Client class which handles
 the interaction with the Qubic API, making HTTP requests and handling responses.
 """
 
@@ -33,7 +33,7 @@ class QubiPy_Core:
         """
 
         try:
-            response = requests.get(f'{self.core_url}{COMPUTORS}', timeout=self.timeout)
+            response = requests.get(f'{self.core_url}{CORE_COMPUTORS}', timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data
@@ -98,7 +98,7 @@ class QubiPy_Core:
             }
         
         try:
-            response = requests.post(f'{self.core_url}{TICK_DATA}', headers=HEADERS, json=payload, timeout=self.timeout)
+            response = requests.post(f'{self.core_url}{CORE_TICK_DATA}', headers=HEADERS, json=payload, timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data
@@ -119,7 +119,7 @@ class QubiPy_Core:
         """
 
         try:
-            response = requests.get(f'{self.core_url}{TICK_INFO}', headers=HEADERS, timeout=self.timeout)
+            response = requests.get(f'{self.core_url}{CORE_TICK_INFO}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()  # Raise an exception for bad HTTP status codes
             data = response.json()
             return data
@@ -301,7 +301,7 @@ class QubiPy_Core:
             data = response.json()
             return data
         except requests.RequestException as E:
-            raise QubiPy_Exceptions(f'Error when getting computors: {str(E)}') from None
+            raise QubiPy_Exceptions(f'Error when getting basic info: {str(E)}') from None
     
     def get_bet_info(self, bet_id: int | None = None) -> Dict[str, Any]:
 
@@ -449,7 +449,7 @@ class QubiPy_Core:
             data = response.json()
             return data
         except requests.RequestException as E:
-            raise QubiPy_Exceptions(f'Error when getting QX ask orders: {str(E)}') from None
+            raise QubiPy_Exceptions(f'Error when getting QX bid orders: {str(E)}') from None
     
     def get_qx_entity_ask_orders(self, entity_id: str | None = None, offset: str | None = None) -> Dict[str, Any]:
 
