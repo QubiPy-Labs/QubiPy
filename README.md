@@ -112,3 +112,7 @@ tx_broadcasted = rpc.broadcast_transaction(signed_tx)
 print(f"Transaction will be executed at tick: {tick+5}")
 print(f"Transaction data: {tx_broadcasted}")
 ```
+
+### Notes
+This library is using `crypto.dll` which is a C extension of Qubic key utility functions and bind it to Python. To build this `crypto.dll`, this repository was used: [https://github.com/serendipity-seeker/key-utils-binding](https://github.com/serendipity-seeker/key-utils-binding).
+
