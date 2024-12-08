@@ -1,0 +1,26 @@
+site_name: QubiPy
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: black
+    accent: cyan
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - toc.follow
+
+nav:
+  - Home: index.md
+  - RPC Client: rpc.md
+  - Core Client: core.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [../qubipy]
