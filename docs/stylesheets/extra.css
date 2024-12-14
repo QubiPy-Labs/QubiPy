@@ -1,0 +1,24 @@
+:root {
+    --md-primary-fg-color: #000000;
+    --md-accent-fg-color: #B0F9FE;
+  }
+  
+  [data-md-color-scheme="slate"] {
+    --md-default-bg-color: rgb(14, 20, 27);
+    --md-code-bg-color: rgba(26, 31, 46, 0.95);
+    --md-code-border-color: rgba(176, 249, 254, 0.2);
+    --md-typeset-color: rgba(255, 255, 255, 0.9);
+    --md-typeset-a-color: #B0F9FE;
+  }
+  
+  .md-typeset code {
+    background-color: var(--md-code-bg-color);
+    border: 1px solid var(--md-code-border-color);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(176, 249, 254, 0.1);
+  }
+  
+  .md-nav__link:hover {
+    color: #B0F9FE !important;
+    text-shadow: 0 0 10px rgba(176, 249, 254, 0.5);
+  }
