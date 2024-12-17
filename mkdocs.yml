@@ -28,6 +28,10 @@ nav:
   - RPC Client: rpc.md
   - Core Client: core.md
   - Advanced examples: examples.md
+  - Security & Best practices: security.md
+  - Contributions: contributing.md
+  - Code of conduct: code_of_conduct.md
+  - Changelog: changelog.md
   - About: about.md
 
 plugins:
@@ -39,3 +43,10 @@ plugins:
 
 extra_css:
   - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/QubiPy-Labs/QubiPy
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/EejFQdQkhG
