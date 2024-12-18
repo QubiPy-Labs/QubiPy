@@ -75,3 +75,7 @@ extra:
       link: https://github.com/QubiPy-Labs/QubiPy
     - icon: fontawesome/brands/discord
       link: https://discord.gg/EejFQdQkhG
+
+copyright: Made with ❤️ by QubiPy Labs
+extra:
+  generator: false
