@@ -69,9 +69,6 @@ You can learn how to contribute [here](contributing.md)
 
 ## Community
 
-Join our community to get help, share ideas, and contribute:
-
-[![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?color=7289da&label=Discord&logo=discord&logoColor=ffffff)](https://discord.gg/qubic)
 
 !!! tip "Get Help"
-    Need help? Join our [Discord community](https://discord.gg/qubic) for quick support and discussions!
+    Need help? Join our [Discord community](https://discord.gg/EejFQdQkhG) for quick support and discussions!

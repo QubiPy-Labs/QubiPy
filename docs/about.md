@@ -56,7 +56,7 @@ Check our [Contributing Guidelines](contributing.md) for more details.
    If you find a problem with the module, please [report it](https://github.com/QubiPy-Labs/QubiPy/issues).
 
 !!! question "Need Help?"
-   - Join our community on [Discord](https://discord.gg/qubic)
+   - Join our community on [Discord]https://discord.gg/EejFQdQkhG)
    - Check our [Documentation](https://qubipy.readthedocs.io)
    - Ask questions on [GitHub Issues](https://github.com/QubiPy-Labs/QubiPy/issues)
 
