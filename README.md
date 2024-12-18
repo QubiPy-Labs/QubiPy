@@ -9,10 +9,6 @@ Visit [Change log](CHANGELOG.md)
 At the moment and as QubiPy is still in a very early stage of development, a PyPi package is not provided. The only alternative right now is to clone the repository in your personal environment and use it.
 
 ### Requirements
-```
-Python 3
-requests
-```
 To install the necessary dependencies, run this command in the console :
 ```
 $ pip install -r requirements.txt
@@ -90,28 +86,8 @@ $ {
 }
 
 ```
-You can build a transaction and brodcast it :
-
-```python
-from qubipy.tx.utils import create_tx
-from qubipy.rpc.rpc_client import QubiPy_RPC
-
-seed = "........................."
-destination_id = "........................."
-amount = 1000
-
-rpc = QubiPy_RPC()
-tick = rpc.get_latest_tick()
-
-# Build transaction
-tx, signed_tx, signature, tx_hash = create_tx(seed, destination_id, amount, tick + 5)
-
-# Broadcast Transaction
-tx_broadcasted = rpc.broadcast_transaction(signed_tx)
-
-print(f"Transaction will be executed at tick: {tick+5}")
-print(f"Transaction data: {tx_broadcasted}")
-```
+## Documentation
+To learn more about the library, please visit our official [documentation]().
 
 ### Notes
 This library is using `crypto.dll` which is a C extension of Qubic key utility functions and bind it to Python. To build this `crypto.dll`, this repository was used: [https://github.com/serendipity-seeker/key-utils-binding](https://github.com/serendipity-seeker/key-utils-binding).
