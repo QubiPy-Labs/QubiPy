@@ -6,6 +6,7 @@
 * Added new utils method to check bytes format
 * Added new exception to handle bytes error
 * Added new exception for the SC method
+* Added compatibility with Linux and MacOS
 * Updated requirements.txt
 * Fixed bugs
 * Created requirements-doc.txt
