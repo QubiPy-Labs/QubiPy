@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 
 
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -15,6 +15,9 @@ setup(
     name="QubiPy",
     version=__version__,
     packages=find_packages(exclude=['tests*', 'tests.*', 'docs*', 'docs.*']),
+    package_data={
+        'qubipy.crypto': ['*.dll', '*.dylib', '*.so'],
+    },
     install_requires=install_requires,
     include_package_data=True,
     description="QubiPy, a Python Library for the QUBIC RPC API",
