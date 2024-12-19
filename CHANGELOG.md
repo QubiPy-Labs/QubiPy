@@ -1,5 +1,8 @@
 # Change Log
-## v0.2.2-alpha - November X, 2024
+## v0.2.3-beta - December 19, 2024
+* Included dll, dylib and so files in package distribution to avoid bugs
+
+## v0.2.2-beta - December 19, 2024
 * Added unit tests for the RPC Client
 * Added fixtures
 * Added new method : tick data
