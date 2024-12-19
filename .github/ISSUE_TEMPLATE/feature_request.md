@@ -1,12 +1,10 @@
 ---
 name: Feature request
+about: This is a feature request template for proposing new functionality to be added to the project.
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''
 ---
-
-### About
-This is a feature request template for proposing new functionality to be added to the project.
 
 ### Feature Description
 <!-- A clear and concise description of the feature you'd like to see implemented -->
