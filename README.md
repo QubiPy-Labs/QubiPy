@@ -3,7 +3,7 @@ Currently, QubiPy is in a very early development phase, so please take this into
 
 Visit [Change log](CHANGELOG.md)
 
-![v0.2.2](https://img.shields.io/badge/beta_version-0.2.2-red)
+![v0.2.3](https://img.shields.io/badge/beta_version-0.2.3-green)
 
 ###  IMPORTANT NOTICE
 At the moment and as QubiPy is still in a very early stage of development, a PyPi package is not provided. The only alternative right now is to clone the repository in your personal environment and use it.
