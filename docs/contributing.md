@@ -29,7 +29,7 @@ We welcome contributions! Here's how you can help make QubiPy better:
 
 !!! tip "Quick Links"
     - [Report a Bug](https://github.com/QubiPy-Labs/QubiPy/blob/main/.github/ISSUE_TEMPLATE/bug_report.md)
-    - [Request a Feature](https://github.com/QubiPy-Labs/QubiPy/blob/documentation-dev/.github/ISSUE_TEMPLATE/feature_request.md)
+    - [Request a Feature](https://github.com/QubiPy-Labs/QubiPy/blob/main/.github/ISSUE_TEMPLATE/feature_request.md)
     - [Read the Documentation](https://qubipy.readthedocs.io)
 
 ## Code Style
