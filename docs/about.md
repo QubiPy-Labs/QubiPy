@@ -33,7 +33,7 @@ Learn more about:
 ## About QubiPy Labs
 
 !!! note "Who We Are"
-   QubiPy Labs is an open source organization founded by Kyoto, dedicated to developing tools and solutions for the Qubic ecosystem. Our team is committed to creating high-quality, developer-friendly solutions that help grow the Qubic community.
+   QubiPy Labs is an open source organization founded by [Kyoto](https://github.com/Mazzya), dedicated to developing tools and solutions for the Qubic ecosystem. Our team is committed to creating high-quality, developer-friendly solutions that help grow the Qubic community.
 
 ## Community and Support
 
