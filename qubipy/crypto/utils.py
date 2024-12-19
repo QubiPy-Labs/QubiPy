@@ -5,8 +5,18 @@ This file contains key management and schnorrq signature functions for Qubic Net
 
 import os
 import ctypes
+import platform
 
-lib = ctypes.CDLL(os.path.join(os.path.dirname(__file__), "crypto.dll"))
+system = platform.system()
+
+if system == "Windows":
+    lib_name = "crypto.dll"
+elif system == "Darwin":
+    lib_name = "crypto.dylib"
+else:
+    lib_name = "crypto.so"
+
+lib = ctypes.CDLL(os.path.join(os.path.dirname(__file__), lib_name))
 
 # Define argument and return types for ctypes bindings
 

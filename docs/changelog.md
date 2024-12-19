@@ -6,11 +6,11 @@
 * Added new utils method to check bytes format
 * Added new exception to handle bytes error
 * Added new exception for the SC method
+* Added compatibility with Linux and MacOS
 * Updated requirements.txt
-* Created requirements-doc.txt
 * Fixed bugs
+* Created requirements-doc.txt
 * Added documentation
-
 
 ## v0.2.1-alpha - November 4th, 2024
 * A security patch has been added to prevent creating a transaction with an invalid tick, i.e. less than the current tick.

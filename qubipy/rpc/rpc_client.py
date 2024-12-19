@@ -53,6 +53,9 @@ class QubiPy_RPC:
         Raises:
             QubiPy_Exceptions: If there is an issue broadcasting the transaction.
         """
+
+        check_bytes(tx)
+
         tx_encoded = base64.b64encode(tx).decode('utf-8')
         payload = json.dumps({
             "encodedTransaction": tx_encoded
@@ -98,7 +101,7 @@ class QubiPy_RPC:
         if not tick:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
     
-        endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick_number = tick)
+        endpoint = APPROVED_TRANSACTIONS_FOR_TICK.format(tick = tick)
 
         try:
             response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=TIMEOUT)
@@ -304,6 +307,35 @@ class QubiPy_RPC:
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the transaction status: {str(E)}") from None
     
+    def get_tick_data(self, tick: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the data associated with a specific tick number from the API.
+
+        Args:
+            tick (Optional[int]): The tick number for which to retrieve the data. If not provided, an exception is raised.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the data associated with the specified tick number. If no data is found, an empty dictionary is returned.
+
+        Raises:
+            QubiPy_Exceptions: If the tick number is not provided or is invalid.
+            QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
+        """
+
+        if not tick:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TICK_ERROR)
+        
+        endpoint = TICK_DATA.format(tick = tick)
+
+        try:
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('tickData', {})  
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the tick data: {str(E)}") from None
+    
     def get_transfer_transactions_per_tick(self, identity: str | None = None, start_tick: int | None = None, end_tick: int | None = None) -> Dict[str, Any]:
 
         """
@@ -400,14 +432,14 @@ class QubiPy_RPC:
             raise QubiPy_Exceptions(f"Failed to retrieve the computors: {str(E)}") from None
     
     
-    def query_smart_contract(self, contract_index: int | None = None, input_type: int | None = None, input_size: int | None = None, request_Data: str | None = None) -> Dict[str, Any]:
+    def query_smart_contract(self, contract_index: str | None = None, input_type: str | None = None, input_size: str | None = None, request_data: str | None = "") -> Dict[str, Any]:
         """
         Query a smart contract to the Qubic network
         
         Args:
-            contractIndex (Optional[int], optional): Contract Index to query
-            inputType (Optional[int], optional): Input type to query
-            inputSize (Optional[int], optional): The input size to query
+            contractIndex (Optional[str], optional): Contract Index to query
+            inputType (Optional[str], optional): Input type to query
+            inputSize (Optional[str], optional): The input size to query
             requestData (Optional[str], optional): The request data to query the smart contract
             
         Returns:
@@ -417,14 +449,18 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If the request data is invalid base64 encoded string.
             QubiPy_Exceptions: If there is an issue querying the smart contract (e.g., network error, invalid response, or timeout).
         """
+
+        if not contract_index or not input_type or not input_size:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_SC_DATA)
+
         
-        request_Data_encoded = base64.b64encode(request_Data.encode('utf-8')).decode('utf-8')
+        request_data_encoded = base64.b64encode(request_data.encode('utf-8')).decode('utf-8')
 
         payload = {
             "contractIndex": contract_index,
             "inputType": input_type,
             "inputSize": input_size,
-            "requestData": request_Data_encoded
+            "requestData": request_data_encoded
         }
         
         try:

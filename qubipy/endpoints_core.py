@@ -6,13 +6,13 @@ This facilitates the centralization of routes and their possible future update.
 
 # CORE SERVICE
 
-COMPUTORS = '/core/getComputors'
+CORE_COMPUTORS = '/core/getComputors'
 
 ENTITY_INFO = '/core/getEntityInfo'
 
-TICK_DATA = '/core/getTickData'
+CORE_TICK_DATA = '/core/getTickData'
 
-TICK_INFO = '/core/getTickInfo'
+CORE_TICK_INFO = '/core/getTickInfo'
 
 TICK_QUORUM_VOTE = '/core/getTickQuorumVote'
 
