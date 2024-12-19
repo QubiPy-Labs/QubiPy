@@ -1,5 +1,6 @@
 ---
 name: Bug report
+about: If you find a bug, you can use this template to report it.
 title: '[BUG] '
 labels: bug
 assignees: ''
