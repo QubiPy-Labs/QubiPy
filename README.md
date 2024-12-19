@@ -6,8 +6,7 @@ Visit [Change log](CHANGELOG.md)
 ![v0.2.3](https://img.shields.io/badge/beta_version-0.2.3-green)
 
 ###  IMPORTANT NOTICE
-At the moment and as QubiPy is still in a very early stage of development, a PyPi package is not provided. The only alternative right now is to clone the repository in your personal environment and use it.
-
+QubiPy is in beta phase and may change considerably until the stable version. Keep this in mind when using the library.
 ### Requirements
 To install the necessary dependencies, run this command in the console :
 ```
@@ -15,7 +14,7 @@ $ pip install -r requirements.txt
 ```
 
 ### How to use
-Clone the repository and run your script from the root path to avoid import issues.
+You have two ways to use QubiPy, one is by PyPi or by cloning the project from the official repository.
 
 To use the module, it is necessary to import some modules before :
 ```python
