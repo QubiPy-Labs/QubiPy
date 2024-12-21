@@ -3,8 +3,8 @@ Currently, QubiPy is in a very early development phase, so please take this into
 
 Please visit the [Change log](https://github.com/QubiPy-Labs/QubiPy/blob/main/docs/changelog.md) to see all changes.
 
-![release](https://img.shields.io/badge/release-v0.2.3--beta-blue)
-![python](https://img.shields.io/badge/python-3.10_%7C_3.11-blue)
+![release](https://img.shields.io/badge/release-v0.2.4--beta-blue)
+![python](https://img.shields.io/badge/python-3.10_%7C_3.11_%7C_3.12-blue)
 ![Python Package](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/python-package.yml/badge.svg)
 ![Code Quality](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/pylint.yml/badge.svg)
 ![license](https://img.shields.io/badge/license-AGPL--3.0-orange)
