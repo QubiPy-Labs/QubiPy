@@ -1,4 +1,8 @@
 # Change Log
+## v0.2.4-beta - December 21, 2024
+* Enhanced github documention & online documentation
+* Fixed some links in the documentation
+
 ## v0.2.3-beta - December 19, 2024
 * Included dll, dylib and so files in package distribution to avoid bugs
 
