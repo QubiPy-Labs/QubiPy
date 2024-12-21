@@ -1,6 +1,6 @@
 # Welcome to the **QubiPy** official documentation, a Python Library for the QUBIC RPC API
 
-!!! note "Beta Version: 0.2.2"
+!!! note "Beta Version: 0.2.3"
     QubiPy is currently in beta. While functional, some features might change before the stable release.
 
 **QubiPy** is a Python library that provides RPC and Core client functionality. You can interact quickly and easily with the Qubic RPC API using the different methods offered by this library.
