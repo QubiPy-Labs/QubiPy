@@ -1,7 +1,7 @@
 # QubiPy, a Python Library for the QUBIC RPC API
 Currently, QubiPy is in a very early development phase, so please take this into consideration before using the library.
 
-Please visit [Change log](CHANGELOG.md) to see all changes.
+Please visit the [Change log](https://github.com/QubiPy-Labs/QubiPy/blob/main/docs/changelog.md) to see all changes.
 
 ![release](https://img.shields.io/badge/release-v0.2.3--beta-blue)
 ![python](https://img.shields.io/badge/python-3.10_%7C_3.11-blue)
