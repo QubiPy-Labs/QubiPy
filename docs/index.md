@@ -5,6 +5,13 @@
 
 **QubiPy** is a Python library that provides RPC and Core client functionality. You can interact quickly and easily with the Qubic RPC API using the different methods offered by this library.
 
+![release](https://img.shields.io/badge/release-v0.2.3--beta-blue)
+![python](https://img.shields.io/badge/python-3.10_%7C_3.11-blue)
+![Python Package](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/python-package.yml/badge.svg)
+![Code Quality](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/pylint.yml/badge.svg)
+![license](https://img.shields.io/badge/license-AGPL--3.0-orange)
+![dependabot](https://img.shields.io/badge/dependabot-enabled-025e8c)
+
 ## Main Features
 * RPC endpoints
 * CORE endpoints
