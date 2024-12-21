@@ -3,7 +3,13 @@ Currently, QubiPy is in a very early development phase, so please take this into
 
 Please visit [Change log](CHANGELOG.md) to see all changes.
 
-![v0.2.3](https://img.shields.io/badge/beta_version-0.2.3-green)
+![release](https://img.shields.io/badge/release-v0.2.3--beta-blue)
+![python](https://img.shields.io/badge/python-3.10_%7C_3.11-blue)
+![Python Package](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/python-package.yml/badge.svg)
+![Code Quality](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/pylint.yml/badge.svg)
+![license](https://img.shields.io/badge/license-AGPL--3.0-orange)
+![dependabot](https://img.shields.io/badge/dependabot-enabled-025e8c)
+
 
 ###  Important notice
 QubiPy is in beta phase and may change considerably until the stable version. Keep this in mind when using the library.
@@ -90,6 +96,6 @@ $ {
 
 ```
 
-### Notes
+### Technical notes
 This library is using `crypto.dll` which is a C extension of Qubic key utility functions and bind it to Python. To build this `crypto.dll`, this repository was used: [https://github.com/serendipity-seeker/key-utils-binding](https://github.com/serendipity-seeker/key-utils-binding).
 
