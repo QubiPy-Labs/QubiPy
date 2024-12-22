@@ -53,7 +53,7 @@ Here's a simple example of how to use QubiPy. For example, If you want to get th
 ```python
 from qubipy.rpc import rpc_client
 
-RPC = QubiPy_RPC()
+RPC = rpc_client.QubiPy_RPC()
 tick = RPC.get_latest_tick()
 
 print(f"Tick: {tick}")
