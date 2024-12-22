@@ -1,4 +1,10 @@
 # Change Log
+## v0.2.5-beta - December 22, 2024
+* Added new advanced code examples
+* Reorganized documentation structure
+* Formatted responses for better readability in the documentation
+* Fixed some imports on the documentation
+
 ## v0.2.4-beta - December 21, 2024
 * Enhanced github documention & online documentation
 * Fixed some links in the documentation
