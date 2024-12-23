@@ -57,3 +57,17 @@ def check_bytes(tx: bytes):
     
     if not isinstance(tx, (bytes, bytearray)):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TX_BYTES)
+
+def check_wallet_id(wallet_id: str):
+     
+     """
+    Validates that the provided wallet ID is in the correct format.
+
+    Args:
+        wallet_id (str): The wallet ID to validate. Must be exactly 60 characters long.
+
+    Raises:
+        QubiPy_Exceptions: If the wallet ID is not exactly 60 characters long.
+    """
+     if len(wallet_id) != 60:
+          raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)

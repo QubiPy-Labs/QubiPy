@@ -130,7 +130,8 @@ class QubiPy_RPC:
         
         if not wallet_id:
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
-
+        
+        check_wallet_id(wallet_id)
 
         endpoint = WALLET_BALANCE.format(id = wallet_id)
 
