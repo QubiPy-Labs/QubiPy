@@ -3,6 +3,8 @@ repo_url: https://github.com/QubiPy-Labs/QubiPy
 repo_name: QubiPy
 theme:
   name: material
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.ico
   palette:
     scheme: slate
     primary: custom
