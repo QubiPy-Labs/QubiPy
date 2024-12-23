@@ -133,7 +133,7 @@ class QubiPy_RPC:
         
         check_wallet_id(wallet_id)
 
-        endpoint = WALLET_BALANCE.format(id = wallet_id)
+        endpoint = WALLET_BALANCE.format(id = wallet_id.upper())
 
         try:
             response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
