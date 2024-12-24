@@ -1,4 +1,7 @@
 # Change Log
+## v0.2.6-beta - December XX, 2024
+* Added a function to verify and validate the wallet ID before making a call to the Qubic network
+
 ## v0.2.5-beta - December 22, 2024
 * Added new advanced code examples
 * Reorganized documentation structure
