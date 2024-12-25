@@ -128,10 +128,8 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
         
-        if not wallet_id:
+        if not wallet_id or is_wallet_id_invalid(wallet_id):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
-        
-        check_wallet_id(wallet_id)
 
         endpoint = WALLET_BALANCE.format(id = wallet_id.upper())
 
