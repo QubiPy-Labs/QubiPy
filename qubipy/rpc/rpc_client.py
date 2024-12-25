@@ -128,11 +128,10 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
         
-        if not wallet_id:
+        if not wallet_id or is_wallet_id_invalid(wallet_id):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
 
-
-        endpoint = WALLET_BALANCE.format(id = wallet_id)
+        endpoint = WALLET_BALANCE.format(id = wallet_id.upper())
 
         try:
             response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
@@ -355,7 +354,7 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
 
-        if not identity:
+        if not identity or is_wallet_id_invalid(identity):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
     
         
@@ -508,7 +507,7 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
 
-        if not identity:
+        if not identity or is_wallet_id_invalid(identity):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
         
         endpoint = ISSUED_ASSETS.format(identity = identity)
@@ -537,8 +536,9 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
 
-        if not identity:
+        if not identity or is_wallet_id_invalid(identity):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
         
         endpoint = OWNED_ASSETS.format(identity = identity)
 
@@ -566,8 +566,9 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
         
-        if not identity:
+        if not identity or is_wallet_id_invalid(identity):
             raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
         
         endpoint = POSSESSED_ASSETS.format(identity = identity)
 
