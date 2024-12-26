@@ -42,18 +42,30 @@ def check_ticks_format(start_tick: int, end_tick: int):
     
     if start_tick <= 0 or end_tick <= 0:
         raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_START_TICK_AND_END_TICK)
-    
-def check_bytes(tx: bytes):
 
+
+def is_tx_bytes_invalid(tx: bytes) -> bool:
     """
     Validates that the input transaction data is in bytes format.
 
     Args:
-        tx (bytes): The transaction data to validate. Must be of type bytes or bytearray.
+        tx (bytes): The transaction data to validate. Must be of type bytes or bytearray
+                   and not empty.
 
-    Raises:
-        QubiPy_Exceptions: If the transaction data is not in bytes or bytearray format.
+    Returns:
+        bool: True if the transaction data is invalid, False if valid
     """
-    
-    if not isinstance(tx, (bytes, bytearray)):
-            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TX_BYTES)
+    return not isinstance(tx, (bytes, bytearray)) or len(tx) == 0
+
+   
+def is_wallet_id_invalid(wallet_id: str) -> bool:
+    """
+    Checks if the provided wallet ID is invalid.
+
+    Args:
+        wallet_id (str): The wallet ID to validate. Must be exactly 60 characters long.
+
+    Returns:
+        bool: True if the wallet ID is invalid, False if valid
+    """
+    return not isinstance(wallet_id, str) or len(wallet_id) != 60 or not wallet_id.isalpha()
