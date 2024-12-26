@@ -54,7 +54,8 @@ class QubiPy_RPC:
             QubiPy_Exceptions: If there is an issue broadcasting the transaction.
         """
 
-        check_bytes(tx)
+        if is_tx_bytes_invalid(tx):
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_TX_BYTES)
 
         tx_encoded = base64.b64encode(tx).decode('utf-8')
         payload = json.dumps({
