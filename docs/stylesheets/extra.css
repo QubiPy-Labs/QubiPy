@@ -22,3 +22,8 @@
     color: #B0F9FE !important;
     text-shadow: 0 0 10px rgba(176, 249, 254, 0.5);
   }
+
+  .md-header__button.md-logo img {
+    width: 40px;
+    height: auto;
+}
