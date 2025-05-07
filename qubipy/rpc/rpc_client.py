@@ -655,6 +655,345 @@ class QubiPy_RPC:
             response = requests.get(f'{self.rpc_url}{RICH_LIST}', params=payload, headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
-            return data.get('richList', {})
+            return data
         except requests.exceptions.RequestException as E:
             raise QubiPy_Exceptions(f"Failed to retrieve the rich list: {str(E)}") from None
+        
+    
+    def get_assets_issuances(self, issuer_identity: str | None = None, asset_name: str | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves asset issuances from the RPC server.
+
+        This method fetches asset issuances and can filter the results based on an
+        optional issuer identity and/or an optional asset name.
+
+        Args:
+            issuer_identity (Optional[str], optional): The identity (wallet ID) of the issuer
+                to filter the issuances by. Defaults to None, meaning no filtering by issuer.
+                If provided (not None), the format of the wallet ID is validated using
+                `is_wallet_id_invalid`.
+            asset_name (Optional[str], optional): The name of the asset to filter the
+                issuances by. Defaults to None, meaning no filtering by asset name.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the asset issuances data from the API response.
+                Returns an empty dictionary ({}) if the key 'assets' is missing in the
+                successful API response body.
+
+        Raises:
+            QubiPy_Exceptions: If the provided `issuer_identity` is not None and its
+                format is determined to be invalid by `is_wallet_id_invalid`, or if
+                there is any issue during the API request execution (e.g., network
+                error, non-2xx HTTP status code response, or timeout).
+        """
+
+        
+        if issuer_identity and is_wallet_id_invalid(issuer_identity):
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ADDRESS_ID)
+        
+        payload = {
+            'issuerIdentity': issuer_identity,
+            'assetName': asset_name
+        }
+
+        try:
+            response = requests.get(f'{self.rpc_url}{ASSETS_ISSUANCE}', params=payload, headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('assets', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve assets issuances: {str(E)}") from None
+        
+    def get_assets_issuances_by_index(self, index: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves a specific asset issuance by its index from the RPC server.
+
+        This method fetches the details of a single asset issuance based on its
+        unique index. A valid index is required.
+
+        Args:
+            index (int | None): The index of the asset issuance to retrieve. Although
+                the type hint includes `None` and the default is `None`, the function's
+                validation (`check_index`) requires a value that converts to a non-empty
+                string of digits (representing a non-negative integer). Passing `None`
+                or an invalid format will cause a validation error.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the data for the specified asset issuance.
+                Returns an empty dictionary ({}) if the key 'data' is missing in the
+                successful API response body.
+
+        Raises:
+            QubiPy_Exceptions: If the provided `index` is invalid (i.e., fails the
+                validation performed by `check_index`, which includes if it's `None`),
+                or if there is any issue during the API request execution (e.g.,
+                network error, non-2xx HTTP status code response from the server, or timeout).
+                Specifically raises `QubiPy_Exceptions.INVALID_INDEX` if the index validation fails.
+        """
+        
+        check_index(index)
+
+        endpoint = ASSETS_ISSUANCE_INDEX.format(index = index)
+
+        try:
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('data', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve assets issuances by index: {str(E)}") from None
+        
+    def get_ownerships_assets(self, issuer_identity: int | None = None, asset_name: int | None = None, owner_identity: int | None = None, ownership_managing_contract: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves asset ownerships from the RPC server based on optional criteria.
+
+        This method can filter ownerships by issuer identity, asset name, owner identity,
+        and/or ownership managing contract.
+
+        Args:
+            issuer_identity (int | None, optional): The identity (integer ID) of the issuer to filter by.
+                Defaults to None, meaning no filtering by issuer.
+                Note: Based on the name, this might conceptually represent a string identifier expected by the API.
+            asset_name (int | None, optional): The name (integer ID) of the asset to filter by.
+                Defaults to None. **This parameter is required by this function's validation**
+                and must not be falsy (i.e., must not be None and must not be the integer 0).
+                Note: Based on the name, this might conceptually represent a string name expected by the API.
+            owner_identity (int | None, optional): The identity (integer ID) of the owner to filter by.
+                Defaults to None, meaning no filtering by owner.
+                Note: Based on the name, this might conceptually represent a string identifier expected by the API.
+            ownership_managing_contract (int | None, optional): The identity (integer ID) of the
+                ownership managing contract to filter by. Defaults to None, meaning no filtering
+                by contract.
+                Note: Based on the name, this might conceptually represent a string identifier expected by the API.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the asset ownerships data from the API response.
+                Returns an empty dictionary ({}) if the key 'assets' is missing in the
+                successful API response body.
+
+        Raises:
+            QubiPy_Exceptions: If the `asset_name` provided is falsy (i.e., is `None` or the
+                integer `0`), raising `QubiPy_Exceptions.INVALID_ASSET_NAME`. Also, if there
+                is any issue during the API request execution (e.g., network error, non-2xx
+                HTTP status code response from the server, or timeout).
+        """
+
+        if not asset_name:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ASSET_NAME)
+
+        payload = {
+            'issuerIdentity': issuer_identity,
+            'assetName': asset_name,
+            'ownerIdentity': owner_identity,
+            'ownershipManagingContract': ownership_managing_contract
+        }
+
+        try:
+            response = requests.get(f'{self.rpc_url}{ASSETS_OWNERSHIPS}', params=payload, headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('assets', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve the ownerships assets: {str(E)}") from None
+        
+    def get_ownerships_assets_by_index(self, index: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves a specific asset ownership by its index from the RPC server.
+
+        This method fetches the details of a single asset ownership based on its
+        unique index. A valid index is required.
+
+        Args:
+            index (int | None): The index of the asset ownership to retrieve. Although
+                the type hint includes `None` and the default is `None`, the function's
+                validation (`check_index`) requires a value that converts to a non-empty
+                string of digits (representing a non-negative integer). Passing `None`
+                or an invalid format will cause a validation error.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the data for the specified asset ownership.
+                Returns an empty dictionary ({}) if the key 'data' is missing in the
+                successful API response body.
+
+        Raises:
+            QubiPy_Exceptions: If the provided `index` is invalid (fails `check_index`
+                validation, including if it's None), or if there is an issue during
+                the API request (e.g., network error, non-2xx HTTP status code, or timeout).
+                Specifically raises `QubiPy_Exceptions.INVALID_INDEX` for index validation failures.
+        """
+
+        check_index(index)
+
+        endpoint = ASSETS_OWNERSHIPS_INDEX.format(index = index)
+
+        try:
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('data', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve assets ownerships by index: {str(E)}") from None
+        
+    
+    def get_assets_possessions(self, issuer_identity: int | None = None, asset_name: int | None = None, owner_identity: int | None = None, possessor_identity: int | None = None, ownership_managing_contract: int | None = None, possession_managing_contrct: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves asset possessions from the RPC server based on optional criteria.
+
+        This method fetches asset possessions and can filter the results based on
+        optional issuer identity, asset name, owner identity, possessor identity,
+        and managing contracts for ownership and possession.
+
+        Args:
+            issuer_identity (int | None, optional): The identity (integer ID) of the issuer to filter by.
+                Defaults to None, meaning no filtering by issuer.
+                Note: Based on the name and common API patterns, this parameter likely represents a string identifier expected by the API.
+            asset_name (int | None, optional): The name (integer ID) of the asset to filter by.
+                Defaults to None. **This parameter is required by this function's validation**
+                and must not be falsy (i.e., must not be None and must not be the integer 0).
+                Note: Based on the name and common API patterns, this parameter likely represents a string name expected by the API.
+            owner_identity (int | None, optional): The identity (integer ID) of the owner to filter by.
+                Defaults to None, meaning no filtering by owner.
+                Note: Based on the name and common API patterns, this parameter likely represents a string identifier expected by the API.
+            possessor_identity (int | None, optional): The identity (integer ID) of the possessor to filter by.
+                Defaults to None, meaning no filtering by possessor.
+                Note: Based on the name and common API patterns, this parameter likely represents a string identifier expected by the API.
+            ownership_managing_contract (int | None, optional): The identity (integer ID) of the ownership managing contract to filter by.
+                Defaults to None, meaning no filtering by ownership managing contract.
+                Note: Based on the name and common API patterns, this parameter likely represents a string identifier expected by the API.
+            possession_managing_contrct (int | None, optional): The identity (integer ID) of the possession managing contract to filter by.
+                Defaults to None, meaning no filtering by possession managing contract.
+                Note: Based on the name and common API patterns, this parameter likely represents a string identifier expected by the API.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the asset possessions data from the API response.
+                Returns an empty dictionary ({}) if the key 'assets' is missing in the
+                successful API response body.
+
+        Raises:
+            QubiPy_Exceptions: If the `asset_name` provided is falsy (i.e., is `None` or the
+                integer `0`), raising `QubiPy_Exceptions.INVALID_ASSET_NAME`. Also, if there
+                is any issue during the API request execution (e.g., network error, non-2xx
+                HTTP status code response from the server, or timeout).
+        """
+
+        if not asset_name:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_ASSET_NAME)
+
+        payload = {
+            'issuerIdentity': issuer_identity,
+            'assetName': asset_name,
+            'ownerIdentity': owner_identity,
+            'possessorIdentity': possessor_identity,
+            'ownershipManagingContract': ownership_managing_contract,
+            'possessionManagingConctract': possession_managing_contrct
+        }
+
+        try:
+            response = requests.get(f'{self.rpc_url}{ASSETS_POSSESSIONS}', headers=HEADERS, params=payload, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('assets', {})
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve ownerships assets by index: {str(E)}") from None
+        
+    def get_assets_possessions_by_index(self, index: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves specific asset possessions by their index from the RPC server.
+
+        This method fetches the details of asset possessions based on their
+        unique index. A valid index is required for the request.
+
+        Args:
+            index (int | None): The index of the asset possessions to retrieve. Although
+                the type hint includes `None` and the default value is `None`, the
+                function's internal validation (`check_index`) requires a value that
+                converts to a non-empty string consisting only of decimal digits
+                (representing a non-negative integer). Providing `None` or any
+                other invalid format will raise a validation error.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the entire JSON response body
+                received from the API for the specified asset possessions.
+
+        Raises:
+            QubiPy_Exceptions: If the provided `index` is invalid (fails the
+                validation performed by `check_index`, including if the input is `None`),
+                or if there is any issue during the API request execution (e.g., a
+                network error, a non-2xx HTTP status code response from the server, or a timeout).
+                Specifically raises `QubiPy_Exceptions.INVALID_INDEX` if the index validation fails.
+        """
+
+        check_index(index)
+
+        endpoint = ASSETS_POSSESSIONS_INDEX.format(index = index)
+
+        try:
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve assets possessions by index: {str(E)}") from None
+    
+    def get_assets_owners_per_asset(self, issuer_identity: int | None = None, asset_name: str | None = None, page_1: int | None = None, page_size: int | None = None) -> Dict[str, Any]:
+
+        """
+        Retrieves the list of owners for a specific asset from the RPC server.
+
+        This method fetches asset owners, requiring the asset to be identified by
+        its issuer identity and asset name. Pagination parameters (page number and
+        page size) are optional and sent as query parameters.
+
+        Args:
+            issuer_identity (int | None): The identity (integer ID) of the asset's issuer.
+                Defaults to None. **This parameter is required by this function's validation**
+                and must not be falsy (i.e., must not be None and must not be the integer 0).
+                Note: Based on the usage in the endpoint path, this parameter is expected by the API.
+            asset_name (str | None): The name of the asset. Defaults to None.
+                **This parameter is required by this function's validation**
+                and must not be falsy (i.e., must not be None and must not be the empty string "").
+                Note: This parameter is used in the endpoint path.
+            page_1 (int | None, optional): The page number for pagination. Defaults to None.
+                Validation of this parameter's value or format is not performed within this function.
+                If not None, it's sent as a query parameter 'page'.
+            page_size (int | None, optional): The number of entries per page for pagination. Defaults to None.
+                Validation of this parameter's value or format is not performed within this function.
+                If not None, it's sent as a query parameter 'pageSize'.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the entire JSON response body received
+                from the API, typically including the list of owners for the specified asset
+                and potentially pagination metadata.
+
+        Raises:
+            QubiPy_Exceptions: If `issuer_identity` or `asset_name` are falsy (i.e., fails the
+                `if not issuer_identity or not asset_name:` check), raising
+                `QubiPy_Exceptions.INVALID_IDENTITY_ASSET`. Also, if there is any issue during
+                the API request execution (e.g., network error, non-2xx HTTP status code
+                response, or timeout).
+        """
+        
+        if not issuer_identity or not asset_name:
+            raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_IDENTITY_ASSET)
+        
+        payload = {
+            'page': page_1,
+            'pageSize': page_size
+        }
+
+
+        endpoint = ASSETS_OWNERS.format(issuer_identity=issuer_identity, asset_name=asset_name)
+
+        try:
+            response = requests.get(f'{self.rpc_url}{endpoint}', headers=HEADERS, params=payload, timeout=self.timeout)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except requests.exceptions.RequestException as E:
+            raise QubiPy_Exceptions(f"Failed to retrieve assets owners per asset: {str(E)}") from None
