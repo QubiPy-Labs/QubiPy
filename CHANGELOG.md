@@ -1,4 +1,19 @@
 # Change Log
+
+## v0.3.0-beta - May 7, 2025
+* Added new endpoints methods : 
+    * get_assets_issuances(): Returns a list of issued assets.
+    * get_assets_issuances_by_index() : Returns an asset issuance by universe index
+    * get_ownerships_assets(): Returns a list of asset owners. Asset name and issuer are required. Issuer defaults to zero address.
+    * get_ownerships_assets_by_index(): Returns an asset ownership by universe index.
+    * get_assets_possessions(): Returns a list of asset possessors. Asset name and issuer are required. Issuer defaults to zero address.
+    * get_assets_possessions_by_index(): Returns an asset possession by universe index.
+    * get_assets_owners_per_asset(): Returns the asset owners per asset
+* Added a function to check the input index and validate before making the query.
+* Added more information to the response returned by the get_rich_list method, such as epoch, tick and more.
+* Added new exceptions to handle new errors.
+* Fixed get_rich_list method test.
+
 ## v0.2.6-beta - December 26, 2024
 * Added a check function to verify and validate the wallet ID before making a call to the Qubic network
 * Optimized network calls by preventing invalid requests
