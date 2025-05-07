@@ -47,3 +47,19 @@ BLOCK_HEIGHT = '/block-height'
 LATEST_STATS = '/latest-stats'
 
 RICH_LIST = '/rich-list'
+
+# Testing
+
+ASSETS_ISSUANCE = '/assets/issuances'
+
+ASSETS_ISSUANCE_INDEX = '/assets/issuances/{index}'
+
+ASSETS_OWNERSHIPS = '/assets/ownerships'
+
+ASSETS_OWNERSHIPS_INDEX = '/assets/ownerships/{index}'
+
+ASSETS_POSSESSIONS = '/assets/possessions'
+
+ASSETS_POSSESSIONS_INDEX = '/assets/possessions/{index}'
+
+ASSETS_OWNERS = '/issuers/{issuer_identity}/assets/{asset_name}/owners'
