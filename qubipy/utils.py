@@ -42,6 +42,32 @@ def check_ticks_format(start_tick: int, end_tick: int):
     
     if start_tick <= 0 or end_tick <= 0:
         raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_START_TICK_AND_END_TICK)
+    
+
+def check_index(index):
+    """
+    Validates that the string representation of the input represents
+    a non-negative integer index (composed only of digits).
+
+    This function handles inputs that might be integers or strings
+    representing non-negative integers. It converts the input to its
+    string form and checks if this string is non-empty and contains
+    only decimal digits.
+
+    Args:
+        index: The input value to validate. Expected to be a value
+               whose string representation is a non-empty sequence of digits.
+
+    Raises:
+        QubiPy_Exceptions.INVALID_INDEX: If the string representation of the
+                                         input is empty or contains any
+                                         character that is not a decimal digit.
+    """
+
+    format_index = str(index)
+
+    if not format_index or not format_index.isdigit():
+        raise QubiPy_Exceptions(QubiPy_Exceptions.INVALID_INDEX)
 
 
 def is_tx_bytes_invalid(tx: bytes) -> bool:
