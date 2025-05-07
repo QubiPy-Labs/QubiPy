@@ -40,3 +40,9 @@ class QubiPy_Exceptions(Exception):
 
     INVALID_TX_BYTES = "A bytes-like object is required for broadcasting a transaction"
 
+    INVALID_INDEX = "You must enter a valid index."
+
+    INVALID_ASSET_NAME = "You must at least indicate the name of the asset, for example 'MLM'."
+
+    INVALID_IDENTITY_ASSET = "You must enter a valid ID and a valid asset name."
+
