@@ -18,7 +18,8 @@ def test_get_rich_list_success(mock_rich_list_response, sample_rich_list_data, r
     with patch('requests.get', return_value=mock_rich_list_response) as mock_get:
         result = rpc_client.get_rich_list(sample_page, sample_page_size)
         
-        assert result == sample_rich_list_data
+        #assert result == sample_rich_list_data
+        assert result.get('richList', {}) == sample_rich_list_data
         mock_rich_list_response.raise_for_status.assert_called_once()
         mock_rich_list_response.json.assert_called_once()
         mock_get.assert_called_once_with(
