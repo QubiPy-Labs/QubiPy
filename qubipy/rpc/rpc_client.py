@@ -7,6 +7,7 @@ the interaction with the Qubic API, making HTTP requests and handling responses.
 import requests
 from typing import Dict, Any
 import json
+import warnings
 
 from qubipy.exceptions import *
 from qubipy.config import *
@@ -586,6 +587,9 @@ class QubiPy_RPC:
         """
         Retrieves the current block height from the API.
 
+        .. deprecated:: 0.4.0
+        Use :func:`get_tick_info` instead. This function will be removed in a future release.
+
         Returns:
             Dict[str, Any]: A dictionary containing the current block height. 
                             If the block height is not found, an empty dictionary is returned.
@@ -593,7 +597,12 @@ class QubiPy_RPC:
         Raises:
             QubiPy_Exceptions: If there is an issue with the API request (e.g., network error, invalid response, or timeout).
         """
-
+        warnings.warn(
+        "The 'get_block_height()' function is deprecated and will be removed in a future version of QubiPy. "
+        "Please use 'get_tick_info()' instead for future compatibility.",
+        DeprecationWarning,
+        stacklevel=2
+        )
         try:
             response = requests.get(f'{self.rpc_url}{BLOCK_HEIGHT}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status()
