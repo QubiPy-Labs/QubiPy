@@ -48,7 +48,7 @@ LATEST_STATS = '/latest-stats'
 
 RICH_LIST = '/rich-list'
 
-# Testing
+# ASSETS
 
 ASSETS_ISSUANCE = '/assets/issuances'
 
