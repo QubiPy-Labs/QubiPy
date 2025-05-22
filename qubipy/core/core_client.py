@@ -541,4 +541,32 @@ class QubiPy_Core:
             return data
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f"Error when getting QX fees: {str(E)}") from None
+        
+    def get_monero_mining_stats(self) -> Dict[str, Any]:
+
+        """
+        Retrieves current Monero mining statistics from the external Monero system.
+
+        This function makes an API call to fetch real-time or recent data related
+        to Monero network mining.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing various statistics related to Monero mining,
+                            such as pool and network hashrates, network difficulty, block height,
+                            and other relevant pool/miner data. The exact structure and content
+                            depend on the Monero API response.
+
+        Raises:
+            QubiPy_Exceptions: If there is an issue during the API request execution (e.g.,
+                            a network connection error, a non-2xx HTTP status code from the
+                            API server, a timeout during the request, or if the API
+                            response cannot be parsed as valid JSON).
+        """
+        try:
+            response = requests.get(f'{MONERO_URL}{MONERO_MINING_STATS}', headers=HEADERS, timeout=self.timeout)
+            response.raise_for_status() # Raise an exception for bad HTTP status codes
+            data = response.json()
+            return data
+        except requests.RequestException as E:
+            raise QubiPy_Exceptions(f"Error when getting the monero mining stats: {str(E)}") from None
     
