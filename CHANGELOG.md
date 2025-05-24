@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.4.0-beta - May 25, 2025
+* Added new endpoint method:
+    * get_monero_mining_stats(): Returns a dictionary containing various statistics related to Monero mining, such as pool and network hashrates, network difficulty, block height, and other relevant pool/miner data.
+
 ## v0.3.0-beta - May 7, 2025
 * Added new endpoints methods : 
     * get_assets_issuances(): Returns a list of issued assets.
