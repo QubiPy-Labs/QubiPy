@@ -587,8 +587,9 @@ class QubiPy_RPC:
         """
         Retrieves the current block height from the API.
 
-        .. deprecated:: 0.4.0
-        Use :func:`get_tick_info` instead. This function will be removed in a future release.
+        ..deprecated:: 0.4.0
+        The `get_block_height()` function is deprecated and will be removed in a future version of QubiPy.
+        Please use `get_tick_info()` instead for future compatibility.
 
         Returns:
             Dict[str, Any]: A dictionary containing the current block height. 
@@ -599,7 +600,7 @@ class QubiPy_RPC:
         """
         warnings.warn(
         "The 'get_block_height()' function is deprecated and will be removed in a future version of QubiPy. "
-        "Please use 'get_tick_info()' instead for future compatibility.",
+        "Please use 'get_tick_info()' instead for maximum compatibility.",
         DeprecationWarning,
         stacklevel=2
         )
