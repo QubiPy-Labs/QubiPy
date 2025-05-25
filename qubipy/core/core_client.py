@@ -563,10 +563,12 @@ class QubiPy_Core:
                             response cannot be parsed as valid JSON).
         """
         try:
+            REWARD_PER_MONERO_BLOCK = 0.6
             response = requests.get(f'{MONERO_URL}{MONERO_MINING_STATS}', headers=HEADERS, timeout=self.timeout)
             response.raise_for_status() # Raise an exception for bad HTTP status codes
             data = response.json()
-            data['monero_amount_rewards'] = data['pool_blocks_found'] * 0.6
+            raw_rewards = data.get('pool_blocks_found', 0) * REWARD_PER_MONERO_BLOCK
+            data['monero_amount_rewards'] = round(raw_rewards, 8)
             return data
         except requests.RequestException as E:
             raise QubiPy_Exceptions(f"Error when getting the monero mining stats: {str(E)}") from None
