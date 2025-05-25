@@ -74,6 +74,24 @@ We welcome all contributions to QubiPy! Whether you want to:
 
 You can learn how to contribute [here](contributing.md)
 
+## Support Our Work (Donations)
+
+!!! tip "Your Contribution Matters"
+   QubiPy is developed and maintained by QubiPy Labs as a free, open-source project for the Qubic community. 
+   
+   Our dedication to providing high-quality tools is driven by passion, but maintaining and enhancing the library requires time, effort, and resources.
+
+   If you find QubiPy valuable and wish to support its continued development, any contribution is greatly appreciated.
+   
+   Your donations help us cover operational costs, dedicate more time to new features, bug fixes, and comprehensive documentation, ensuring QubiPy remains a robust tool for everyone.
+
+   You can send your generous contributions to the following addresses:
+
+   * QUBIC : **`CNSLISZCRHAVHADBQCZWVYAVTYXCVNQREGVVTWKBLHSJXFHRFEGNLORCHRSE`**
+   * USDT (ETH, ARB, BSC or Polygon) : **`0x453471Cc01868895b833841Ce7DbaE11fd9D1933`**
+
+   A huge thank you for being a part of the QubiPy journey!
+
 ## Community
 
 
