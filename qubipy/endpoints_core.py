@@ -43,3 +43,7 @@ QX_ENTITY_ASK_ORDERS = '/qx/getEntityAskOrders'
 QX_ENTITY_BID_ORDERS = '/qx/getEntityBidOrders'
 
 QX_FEES = '/qx/getFees'
+
+# MONERO MINING STATS
+
+MONERO_MINING_STATS = '/stats'

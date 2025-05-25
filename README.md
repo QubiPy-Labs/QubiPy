@@ -3,7 +3,7 @@ Currently, QubiPy is in a very early development phase, so please take this into
 
 Please visit the [Change log](https://github.com/QubiPy-Labs/QubiPy/blob/main/docs/changelog.md) to see all changes.
 
-![release](https://img.shields.io/badge/release-v0.3.0--beta-blue)
+![release](https://img.shields.io/badge/release-v0.4.0--beta-blue)
 ![python](https://img.shields.io/badge/python-3.10_%7C_3.11_%7C_3.12-blue)
 ![Python Package](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/python-package.yml/badge.svg)
 ![Code Quality](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/pylint.yml/badge.svg)
@@ -95,6 +95,24 @@ $ {
 }
 
 ```
+
+### Support Our Work (Donations)
+
+#### Your Contribution Matters
+   QubiPy is developed and maintained by QubiPy Labs as a free, open-source project for the Qubic community. 
+   
+   Our dedication to providing high-quality tools is driven by passion, but maintaining and enhancing the library requires time, effort, and resources.
+
+   If you find QubiPy valuable and wish to support its continued development, any contribution is greatly appreciated.
+   
+   Your donations help us cover operational costs, dedicate more time to new features, bug fixes, and comprehensive documentation, ensuring QubiPy remains a robust tool for everyone.
+
+   You can send your generous contributions to the following addresses:
+
+   * QUBIC : **`CNSLISZCRHAVHADBQCZWVYAVTYXCVNQREGVVTWKBLHSJXFHRFEGNLORCHRSE`**
+   * USDT (ETH, ARB, BSC or Polygon) : **`0x453471Cc01868895b833841Ce7DbaE11fd9D1933`**
+
+   A huge thank you for being a part of the QubiPy journey!
 
 ### Technical notes
 This library is using `crypto.dll` which is a C extension of Qubic key utility functions and bind it to Python. To build this `crypto.dll`, this repository was used: [https://github.com/serendipity-seeker/key-utils-binding](https://github.com/serendipity-seeker/key-utils-binding).

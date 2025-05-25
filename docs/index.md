@@ -1,11 +1,11 @@
 # Welcome to the **QubiPy** official documentation, a Python Library for the QUBIC RPC API
 
-!!! note "Beta Version: 0.3.0"
+!!! note "Beta Version: 0.4.0"
     QubiPy is currently in beta. While functional, some features might change before the stable release.
 
 **QubiPy** is a Python library that provides RPC and Core client functionality. You can interact quickly and easily with the Qubic RPC API using the different methods offered by this library.
 
-![release](https://img.shields.io/badge/release-v0.3.0--beta-blue)
+![release](https://img.shields.io/badge/release-v0.4.0--beta-blue)
 ![python](https://img.shields.io/badge/python-3.10_%7C_3.11_%7C_3.12-blue)
 ![Python Package](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/python-package.yml/badge.svg)
 ![Code Quality](https://github.com/QubiPy-Labs/QubiPy/actions/workflows/pylint.yml/badge.svg)
@@ -73,6 +73,24 @@ We welcome all contributions to QubiPy! Whether you want to:
 * Submit suggestions
 
 You can learn how to contribute [here](contributing.md)
+
+## Support Our Work (Donations)
+
+!!! tip "Your Contribution Matters"
+   QubiPy is developed and maintained by QubiPy Labs as a free, open-source project for the Qubic community. 
+   
+   Our dedication to providing high-quality tools is driven by passion, but maintaining and enhancing the library requires time, effort, and resources.
+
+   If you find QubiPy valuable and wish to support its continued development, any contribution is greatly appreciated.
+   
+   Your donations help us cover operational costs, dedicate more time to new features, bug fixes, and comprehensive documentation, ensuring QubiPy remains a robust tool for everyone.
+
+   You can send your generous contributions to the following addresses:
+
+   * QUBIC : **`CNSLISZCRHAVHADBQCZWVYAVTYXCVNQREGVVTWKBLHSJXFHRFEGNLORCHRSE`**
+   * USDT (ETH, ARB, BSC or Polygon) : **`0x453471Cc01868895b833841Ce7DbaE11fd9D1933`**
+
+   A huge thank you for being a part of the QubiPy journey!
 
 ## Community
 

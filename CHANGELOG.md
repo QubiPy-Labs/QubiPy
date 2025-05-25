@@ -1,5 +1,13 @@
 # Change Log
 
+## v0.4.0-beta - May 25, 2025
+* Added new endpoint method:
+    * `get_monero_mining_stats()`: Returns a dictionary containing various statistics related to Monero mining, such as pool and network hashrates, network difficulty, block height, and other relevant pool/miner data.
+    * Since the reward for each block of monero is `0.6 XMR`, we have added a small formula that allows us to calculate approximate rewards.
+* Some internal libraries have been updated to fix known vulnerabilities.
+* Since the : `/block-height` endpoint is going to be removed, a message has been added to the `get_block_height()` method to warn that it is recommended to use the  `get_tick_info()` method instead to ensure maximum compatibility.
+* Donation addresses have been added to help cover operational costs, spend more time on new features, bug fixes and full documentation, ensuring that QubiPy remains a robust tool for everyone. More information in our [README](https://github.com/QubiPy-Labs/QubiPy/blob/main/README.md) and our [online documentation](https://qubipy.readthedocs.io/en/latest/about/#community-and-support).
+
 ## v0.3.0-beta - May 7, 2025
 * Added new endpoints methods : 
     * get_assets_issuances(): Returns a list of issued assets.
