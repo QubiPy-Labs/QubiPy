@@ -8,11 +8,15 @@ import ctypes
 import platform
 
 system = platform.system()
+machine = platform.machine()
 
 if system == "Windows":
     lib_name = "crypto.dll"
 elif system == "Darwin":
-    lib_name = "crypto.dylib"
+    if machine == "arm64":
+        lib_name = "crypto_silicon.dylib"  # For Apple Silicon
+    else:
+        lib_name = "crypto_intel.dylib"    # For Intel
 else:
     lib_name = "crypto.so"
 
