@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.4.1-beta - September 20, 2025
+* Improved macOS compatibility: The cryptography library detection has been updated to differentiate between Apple Silicon (arm64) and Intel (x86_64) chips. The library module now automatically selects the correct version (crypto_silicon.dylib or crypto_intel.dylib), resolving potential compatibility issues on newer machines.
+
 ## v0.4.0-beta - May 25, 2025
 * Added new endpoint method:
     * `get_monero_mining_stats()`: Returns a dictionary containing various statistics related to Monero mining, such as pool and network hashrates, network difficulty, block height, and other relevant pool/miner data.
